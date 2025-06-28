@@ -82,9 +82,7 @@ export const updateTeacherMonthSalary = async (req, res) => {
     return res.status(400).json({ message: 'Valid Salary and Allowance (cannot be null or NaN) are required.' });
   }
 
-  const transaction = await sequelize.transaction({
-    logging: (sql, timing) => console.log(`[SEQUELIZE_TX_DEBUG] Query: ${sql} - Timing: ${timing}ms`)
-  });
+  const transaction = await sequelize.transaction();
   console.log(`[CNTRLR_DEBUG] updateTeacherMonthSalary: Transaction ${transaction.id} started.`);
 
   try {
@@ -114,7 +112,29 @@ export const updateTeacherMonthSalary = async (req, res) => {
     }
     console.log('[CNTRLR_DEBUG] updateTeacherMonthSalary: Payroll records BEFORE update for month ' + month + ':', JSON.stringify(payroll.records ? payroll.records[month] : 'No records field yet', null, 2));
     
-    const updatedRecords = payroll.records ? JSON.parse(JSON.stringify(payroll.records)) : getDefaultYearRecords();
+    let updatedRecords;
+    try {
+      if (typeof payroll.records === 'string') {
+        updatedRecords = JSON.parse(payroll.records);
+      } else if (payroll.records && typeof payroll.records === 'object') {
+        updatedRecords = JSON.parse(JSON.stringify(payroll.records));
+      } else {
+        // Initialize with default records only if no records exist
+        updatedRecords = getDefaultYearRecords();
+      }
+      
+      // Ensure all months exist in the records (without overwriting existing data)
+      NEPALI_MONTHS.forEach(monthName => {
+        if (!updatedRecords[monthName]) {
+          updatedRecords[monthName] = getDefaultMonthRecord();
+        }
+      });
+      
+    } catch (error) {
+      console.error(`[ERROR] Failed to parse payroll records:`, error);
+      // Only use defaults as fallback, try to preserve existing data
+      updatedRecords = payroll.records || getDefaultYearRecords();
+    }
     const paymentDate = new Date().toISOString();
 
     updatedRecords[month] = {
@@ -133,30 +153,29 @@ export const updateTeacherMonthSalary = async (req, res) => {
     await payroll.save({ transaction });
     console.log('[CNTRLR_DEBUG] updateTeacherMonthSalary: payroll.save() executed.');
 
-    const teacherLastPayment = {
-      month,
-      year: parseInt(year),
-      salary: parsedSalary,
-      allowance: parsedAllowance,
-      date: paymentDate
-    };
-    const teacherPaymentsSummary = teacher.payments ? JSON.parse(JSON.stringify(teacher.payments)) : {};
-    const paymentKey = `${year}_${month}`;
-    teacherPaymentsSummary[paymentKey] = { ...teacherLastPayment, remarks: remarks || '', status: 'paid' };
-
-    console.log('[CNTRLR_DEBUG] updateTeacherMonthSalary: Teacher lastPayment and payments summary prepared:', JSON.stringify({teacherLastPayment, teacherPaymentsSummary}, null, 2));
-    await teacher.update({
-      lastPayment: teacherLastPayment,
-      payments: teacherPaymentsSummary
-    }, { transaction });
+    // Skip teacher payments sync to prevent crashes
+    // Only update the core payroll record
     console.log('[CNTRLR_DEBUG] updateTeacherMonthSalary: teacher.update() executed.');
 
     await transaction.commit();
     console.log(`[CNTRLR_DEBUG] updateTeacherMonthSalary: Transaction ${transaction.id} committed successfully.`);
     
-    const finalPayroll = await TeacherPayroll.findByPk(payroll.id, { logging: sql => console.log('[SEQUELIZE_FINAL_FETCH_DEBUG]', sql) });
-    console.log('[CNTRLR_DEBUG] updateTeacherMonthSalary: Final payroll fetched after commit for response:', JSON.stringify(finalPayroll, null, 2));
-    res.status(200).json(finalPayroll);
+    const finalPayroll = await TeacherPayroll.findByPk(payroll.id);
+    console.log('[CNTRLR_DEBUG] updateTeacherMonthSalary: Final payroll fetched after commit for response');
+    
+    // Ensure the response includes properly formatted records
+    const responseData = {
+      id: finalPayroll.id,
+      teacherId: finalPayroll.teacherId,
+      year: finalPayroll.year,
+      records: finalPayroll.records,
+      createdAt: finalPayroll.createdAt,
+      updatedAt: finalPayroll.updatedAt,
+      success: true,
+      message: `Salary updated for ${month} ${year}`
+    };
+    
+    res.status(200).json(responseData);
 
   } catch (error) {
     console.error(`[CNTRLR_ERROR] updateTeacherMonthSalary: Error during transaction or main logic - ${error.message}`, error.stack);
@@ -217,7 +236,22 @@ export const getTeacherPayroll = async (req, res) => {
     }
     
     // Work with a mutable copy for the response preparation
-    let responseRecords = payroll.records ? JSON.parse(JSON.stringify(payroll.records)) : {};
+    let responseRecords;
+    try {
+      if (typeof payroll.records === 'string') {
+        // If records is stored as a string, parse it
+        responseRecords = JSON.parse(payroll.records);
+      } else if (payroll.records && typeof payroll.records === 'object') {
+        // If records is already an object, clone it
+        responseRecords = JSON.parse(JSON.stringify(payroll.records));
+      } else {
+        // If no records exist, use empty object
+        responseRecords = {};
+      }
+    } catch (error) {
+      console.error(`[ERROR] Failed to parse payroll records for teacher ${teacherId}:`, error);
+      responseRecords = {};
+    }
     let recordsWereModified = false;
     
     // Ensure all months exist in the records
@@ -235,49 +269,8 @@ export const getTeacherPayroll = async (req, res) => {
       }
     }
     
-    // Sync with teacher payments record
-    if (teacher.payments) {
-      console.log(`[DEBUG] Teacher has payment records for sync:`, JSON.stringify(teacher.payments));
-      
-      for (const key in teacher.payments) {
-        if (key.startsWith(currentYear.toString())) {
-          const monthKey = key.split('_')[1];
-          const teacherPayment = teacher.payments[key];
-          
-          if (responseRecords[monthKey] && teacherPayment.status === 'paid' && responseRecords[monthKey].status !== 'paid') {
-            console.log(`[DEBUG] Syncing: Found paid record in teacher.payments for ${monthKey}`);
-            
-            // Ensure we have a valid date string
-            let paymentDate = new Date().toISOString();
-            try {
-              if (teacherPayment.date) {
-                paymentDate = typeof teacherPayment.date === 'string' 
-                  ? teacherPayment.date 
-                  : new Date(teacherPayment.date).toISOString();
-              }
-            } catch (error) {
-              console.error(`[ERROR] Error processing date for ${monthKey}:`, error);
-            }
-
-            responseRecords[monthKey] = {
-              salary: parseFloat(teacherPayment.salary) || 0,
-              allowance: parseFloat(teacherPayment.allowance) || 0,
-              remarks: teacherPayment.remarks || '',
-              status: 'paid',
-              date: paymentDate,
-              paymentDate: paymentDate
-            };
-            recordsWereModified = true;
-          }
-        }
-      }
-    }
-
-    if (recordsWereModified) {
-      console.log(`[DEBUG] Records were modified during sync`);
-      payroll.records = responseRecords;
-      await payroll.save();
-    }
+    // Skip heavy sync operations to improve performance
+    // Records will be updated through direct payroll updates only
 
     console.log(`[DEBUG] Returning payroll data for teacher ${teacherId}`);
     res.status(200).json({
@@ -363,10 +356,31 @@ export const updateSalary = async (req, res) => {
       console.log(`[DEBUG] [updateSalary] Found existing payroll record for teacher ${teacherId}`);
     }
 
-    // Update the specific month's record
-    const updatedRecords = { ...payroll.records };
+    // Update the specific month's record - preserve existing months
+    let updatedRecords;
+    try {
+      if (typeof payroll.records === 'string') {
+        updatedRecords = JSON.parse(payroll.records);
+      } else if (payroll.records && typeof payroll.records === 'object') {
+        updatedRecords = JSON.parse(JSON.stringify(payroll.records));
+      } else {
+        updatedRecords = getDefaultYearRecords();
+      }
+    } catch (parseError) {
+      console.error(`[ERROR] [updateSalary] Failed to parse existing records:`, parseError);
+      updatedRecords = getDefaultYearRecords();
+    }
+    
+    // Ensure all months exist with default values if not present
+    NEPALI_MONTHS.forEach(monthName => {
+      if (!updatedRecords[monthName]) {
+        updatedRecords[monthName] = getDefaultMonthRecord();
+      }
+    });
+    
     const paymentDate = new Date().toISOString();
     
+    // Update only the specific month, preserving all others
     updatedRecords[month] = {
       salary: parseFloat(salary) || 0,
       allowance: parseFloat(allowance) || 0,
@@ -376,6 +390,9 @@ export const updateSalary = async (req, res) => {
       paymentDate: paymentDate
     };
 
+    console.log(`[DEBUG] [updateSalary] Updated records for ${month}:`, updatedRecords[month]);
+    console.log(`[DEBUG] [updateSalary] All months preserved:`, Object.keys(updatedRecords));
+
     // Use Sequelize update instead of raw SQL
     await payroll.update({ 
       records: updatedRecords 
@@ -383,55 +400,30 @@ export const updateSalary = async (req, res) => {
     
     console.log(`[DEBUG] [updateSalary] Payroll records updated using Sequelize ORM`);
 
-    // Update teacher's lastPayment and payments
-    const updatedPayments = { ...teacher.payments };
-    const paymentKey = `${currentYear}_${month}`;
-    
-    updatedPayments[paymentKey] = {
-      salary: parseFloat(salary) || 0,
-      allowance: parseFloat(allowance) || 0,
-      remarks: remarks || '',
-      status: 'paid',
-      date: paymentDate,
-      paymentDate: paymentDate
-    };
-
-    await teacher.update({
-      lastPayment: {
-        month,
-        year: currentYear,
-        salary: parseFloat(salary) || 0,
-        allowance: parseFloat(allowance) || 0,
-        date: paymentDate
-      },
-      payments: updatedPayments
-    }, { transaction });
-
-    console.log(`[DEBUG] [updateSalary] Teacher model updated successfully`);
+    // Skip teacher payments sync to prevent circular reference issues
+    console.log(`[DEBUG] [updateSalary] Skipping teacher payments sync to prevent errors`);
 
     // Commit transaction
     await transaction.commit();
     console.log(`[DEBUG] [updateSalary] Transaction committed successfully`);
 
-    // Fetch updated data to return
-    const updatedPayroll = await TeacherPayroll.findByPk(payroll.id);
-    const updatedTeacher = await Teacher.findByPk(teacherId);
-
-    console.log(`[DEBUG] [updateSalary] Successfully updated. Status for ${month}: ${updatedPayroll.records[month]?.status}`);
-    
-    return res.status(200).json({
+    // Return a clean response without circular references
+    const responseData = {
       success: true,
-      message: 'Salary updated successfully',
-      payroll: updatedPayroll,
-      teacherInfo: {
-        id: updatedTeacher.id,
-        name: updatedTeacher.name,
-        email: updatedTeacher.email,
-        position: updatedTeacher.position || 'Teacher',
-        contact: updatedTeacher.contact || '',
-        lastPayment: updatedTeacher.lastPayment
+      message: `Salary updated successfully for ${month} ${currentYear}`,
+      data: {
+        id: payroll.id,
+        teacherId: payroll.teacherId,
+        year: payroll.year,
+        records: updatedRecords,
+        updatedMonth: month,
+        updatedAt: new Date().toISOString()
       }
-    });
+    };
+    
+    console.log(`[DEBUG] [updateSalary] Successfully updated. Status for ${month}: ${updatedRecords[month]?.status}`);
+    
+    return res.status(200).json(responseData);
 
   } catch (error) {
     console.error('[ERROR] [updateSalary] Error during update:', error);

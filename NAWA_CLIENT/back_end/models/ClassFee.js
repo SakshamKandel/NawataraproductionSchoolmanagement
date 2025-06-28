@@ -28,7 +28,8 @@ const ClassFee = sequelize.define('ClassFee', {
     defaultValue: 0
   }
 }, {
-  timestamps: true
+  timestamps: true,
+  tableName: 'ClassFees'
 });
 
 export default ClassFee; 

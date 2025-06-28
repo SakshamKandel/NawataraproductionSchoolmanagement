@@ -95,30 +95,46 @@ const Notice = () => {
     });
   };
 
-  const handleDelete = (noticeId) => {
-    toast.info(
-      <div>
-        Are you sure you want to delete this notice? This action cannot be undone.<br/>
-        <button
-          onClick={async () => {
-            toast.dismiss();
-            try {
-              console.log("Deleting notice with ID:", noticeId);
-              await axios.delete(getApiUrl(`/api/admin/notices/delete/notice/${noticeId}`), { withCredentials: true });
-              setNotices((prev) => prev.filter((n) => n.id !== noticeId && n._id !== noticeId));
-              toast.success('Notice deleted successfully');
-            } catch (error) {
-              console.error("Delete error:", error);
-              toast.error(error.response?.data?.message || 'Failed to delete notice');
-            }
-          }}
-          className="mt-2 px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-xs font-semibold"
-        >
-          Confirm Delete
-        </button>
-      </div>,
-      { autoClose: false, closeOnClick: false, transition: Slide }
-    );
+  const handleDelete = async (noticeId) => {
+    console.log("Direct delete for notice ID:", noticeId);
+    
+    // Optimistic update: remove notice from UI immediately
+    const originalNotices = notices;
+    setNotices((prev) => prev.filter((n) => n.id !== noticeId && n._id !== noticeId));
+    
+    try {
+      console.log("Sending delete request for notice ID:", noticeId);
+      const response = await axios.delete(
+        getApiUrl(`/api/admin/notices/delete/notice/${noticeId}`), 
+        { 
+          withCredentials: true,
+          timeout: 8000
+        }
+      );
+      console.log("Delete response:", response);
+      
+      // Show success message
+      toast.success('✅ Notice deleted successfully', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      
+    } catch (error) {
+      console.error("Delete error:", error);
+      
+      // Revert optimistic update on error
+      setNotices(originalNotices);
+      
+      const errorMessage = error.response?.data?.message || 'Failed to delete notice';
+      toast.error(errorMessage, {
+        position: "top-right",
+        autoClose: 5000,
+      });
+    }
   };
 
   // Pagination logic

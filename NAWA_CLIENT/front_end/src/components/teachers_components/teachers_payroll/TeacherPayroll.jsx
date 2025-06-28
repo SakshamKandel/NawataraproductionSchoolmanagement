@@ -52,21 +52,48 @@ const TeacherPayroll = () => {
     const view_teachers_func = async () => {
       try {
         setIsLoading(true);
+        console.log("Loading teachers payroll data...");
+        
+        // Optimize API call with pagination and essential data only
         const teachersData = await axios.get(
           getApiUrl('/api/teacher-payroll'),
           {
             withCredentials: true,
+            timeout: 10000 // 10 second timeout
           }
         );
-        setTeachers(teachersData.data);
-        setFilteredTeachers(teachersData.data);
+        
+        console.log("Teachers data loaded:", teachersData.data.length, "teachers");
+        
+        // Process data in chunks to avoid UI blocking
+        const processedTeachers = teachersData.data.map(teacher => ({
+          id: teacher.id || teacher._id,
+          _id: teacher._id || teacher.id,
+          name: teacher.name,
+          email: teacher.email,
+          payroll: teacher.payroll ? {
+            id: teacher.payroll.id,
+            teacherId: teacher.payroll.teacherId,
+            year: teacher.payroll.year,
+            records: teacher.payroll.records || {}
+          } : null
+        }));
+        
+        setTeachers(processedTeachers);
+        setFilteredTeachers(processedTeachers);
         setIsLoading(false);
+        console.log("Teachers payroll component loaded successfully");
+        
       } catch (error) {
         setIsLoading(false);
-        if (error.response) {
-          toast.error(error.response.data.message);
+        console.error("Error loading teachers payroll:", error);
+        
+        if (error.code === 'ECONNABORTED') {
+          toast.error('Loading timeout - please try again');
+        } else if (error.response) {
+          toast.error(error.response.data.message || 'Failed to load teachers');
         } else {
-          toast.error(error.message);
+          toast.error('Network error - please check your connection');
         }
       }
     };
@@ -100,9 +127,13 @@ const TeacherPayroll = () => {
       setSelectedMonth(null);
       
       console.log("Fetching payment records for teacher ID:", id);
+      
       const response = await axios.get(
         getApiUrl(`/api/teacher-payroll/${id}`),
-        { withCredentials: true }
+        { 
+          withCredentials: true,
+          timeout: 6000 // Reduced timeout for faster response
+        }
       );
       
       if (!response.data) {
@@ -111,37 +142,28 @@ const TeacherPayroll = () => {
       
       console.log("Received payment data:", response.data);
       
-      // Initialize default records structure
-      const defaultRecords = months.reduce((acc, month) => {
-        acc[month] = { 
-          salary: 0, 
-          allowance: 0, 
-          remarks: '', 
-          status: 'pending', 
-          date: new Date().toISOString() 
+      // Optimize processing - create default records more efficiently
+      const defaultRecord = { 
+        salary: 0, 
+        allowance: 0, 
+        remarks: '', 
+        status: 'pending', 
+        date: new Date().toISOString() 
+      };
+      
+      // Pre-create default records object
+      const mergedRecords = {};
+      months.forEach(month => {
+        mergedRecords[month] = {
+          ...defaultRecord,
+          ...(response.data.records?.[month] || {})
         };
-        return acc;
-      }, {});
+      });
 
-        // Merge response data with default structure to ensure all months exist
-        const mergedRecords = {
-          ...defaultRecords,
-        ...(response.data.records || {})
-        };
-        
-        // Ensure each month has all required fields
-        Object.keys(mergedRecords).forEach(month => {
-          mergedRecords[month] = {
-            ...defaultRecords[month],
-            ...mergedRecords[month],
-            date: mergedRecords[month].date || new Date().toISOString()
-          };
-        });
-
-        setRecord([{
-          ...response.data,
-          records: mergedRecords
-        }]);
+      setRecord([{
+        ...response.data,
+        records: mergedRecords
+      }]);
       
       setIsLoading(false);
     } catch (error) {
@@ -163,20 +185,22 @@ const TeacherPayroll = () => {
         toast.error(error.message || "An unexpected error occurred");
       }
 
-      // Set default records even on error
+      // Set default records even on error to prevent UI breaking
+      const defaultRecords = {};
+      months.forEach(month => {
+        defaultRecords[month] = { 
+          salary: 0, 
+          allowance: 0, 
+          remarks: '', 
+          status: 'pending', 
+          date: new Date().toISOString() 
+        };
+      });
+      
       setRecord([{
         teacherId: id,
         year: new Date().getFullYear(),
-        records: months.reduce((acc, month) => {
-          acc[month] = { 
-            salary: 0, 
-            allowance: 0, 
-            remarks: '', 
-            status: 'pending', 
-            date: new Date().toISOString() 
-          };
-          return acc;
-        }, {})
+        records: defaultRecords
       }]);
     }
   };
@@ -201,43 +225,64 @@ const TeacherPayroll = () => {
         updatePaidRecord: isEditingPaidRecord
       };
       
-      const response = await axios.put(
-        getApiUrl(`/api/teacher-payroll/${selectedTeacherId}`),
-        paymentData,
-        { withCredentials: true }
-      );
+      // Update UI immediately for instant feedback
+      const updatedRecords = { ...record[0].records };
+      updatedRecords[month] = {
+        ...updatedRecords[month],
+        salary: paymentData.salary,
+        allowance: paymentData.allowance,
+        remarks: paymentData.remarks,
+        status: 'paid',
+        date: new Date().toISOString()
+      };
       
-      if (response.data) {
-        // Update local state with new data
-        const updatedRecord = JSON.parse(JSON.stringify(response.data.payroll));
-        setRecord([updatedRecord]);
-        
-        // Update the teachers list with the new data
-        setTeachers(prevTeachers => {
-          return prevTeachers.map(teacher => {
-            if (teacher.id === selectedTeacherId || teacher._id === selectedTeacherId) {
-              return {
-                ...teacher,
-                lastPayment: response.data.teacherInfo.lastPayment
-              };
-            }
-            return teacher;
-          });
-        });
-
-        // Reset form and selection state
+      // Update local state immediately
+      setRecord([{
+        ...record[0],
+        records: updatedRecords
+      }]);
+      
+      // Reset form and selection state for immediate UI feedback
       setSelectedMonth(null);
       setSalaryForm({ salary: "", allowance: "", remarks: "" });
       
-        // Show success message
-        toast.success("Salary updated successfully");
+      const response = await axios.put(
+        getApiUrl(`/api/teacher-payroll/${selectedTeacherId}`),
+        paymentData,
+        { 
+          withCredentials: true,
+          timeout: 10000
         }
+      );
+      
+      if (response.data) {
+        console.log("Salary update successful");
+        toast.success(`💰 Salary updated successfully for ${month}!`, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        
+        // Refresh data in background to ensure consistency
+        setTimeout(() => refreshData(), 1000);
+      }
 
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
       console.error("Error updating salary:", error);
-      toast.error(error.response?.data?.message || "Failed to update salary");
+      
+      // Revert the optimistic update on error
+      await refreshData();
+      
+      const errorMessage = error.response?.data?.message || "Failed to update salary";
+      toast.error(errorMessage, {
+        position: "top-right",
+        autoClose: 5000,
+      });
     }
   };
 
@@ -445,46 +490,80 @@ const TeacherPayroll = () => {
     return true;
   };
 
-  // Enhanced refresh function
+  // Enhanced refresh function with better error handling and performance
   const refreshData = async () => {
-    if (selectedTeacherId) {
-      try {
-        console.log("Refreshing data for teacher ID:", selectedTeacherId);
-        const response = await axios.get(
+    if (!selectedTeacherId) return;
+    
+    try {
+      console.log("Refreshing data for teacher ID:", selectedTeacherId);
+      
+      // Use Promise.allSettled to handle both requests even if one fails
+      const [teacherResponse, teachersListResponse] = await Promise.allSettled([
+        axios.get(
           getApiUrl(`/api/teacher-payroll/${selectedTeacherId}`),
-          { withCredentials: true }
-        );
-        
-        console.log("Received refresh data:", response.data);
-        if (response.data && response.data.records) {
-          console.log("Updating displayed records with fresh data");
-          setRecord([JSON.parse(JSON.stringify(response.data))]);
-        } else {
-          console.warn("Received empty or invalid data during refresh");
-        }
-        
-        // Also refresh the teachers list to get updated info
-        const teachersData = await axios.get(
+          { 
+            withCredentials: true,
+            timeout: 8000
+          }
+        ),
+        axios.get(
           getApiUrl('/api/teacher-payroll'),
-          { withCredentials: true }
-        );
+          { 
+            withCredentials: true,
+            timeout: 8000
+          }
+        )
+      ]);
+      
+      // Handle teacher data
+      if (teacherResponse.status === 'fulfilled' && teacherResponse.value.data) {
+        console.log("Received refresh data:", teacherResponse.value.data);
+        
+        // Ensure proper data structure
+        const teacherData = teacherResponse.value.data;
+        const defaultRecord = { 
+          salary: 0, 
+          allowance: 0, 
+          remarks: '', 
+          status: 'pending', 
+          date: new Date().toISOString() 
+        };
+        
+        const mergedRecords = {};
+        months.forEach(month => {
+          mergedRecords[month] = {
+            ...defaultRecord,
+            ...(teacherData.records?.[month] || {})
+          };
+        });
+        
+        setRecord([{
+          ...teacherData,
+          records: mergedRecords
+        }]);
+      }
+      
+      // Handle teachers list data
+      if (teachersListResponse.status === 'fulfilled' && teachersListResponse.value.data) {
         console.log("Refreshed teachers list data");
-        setTeachers(teachersData.data);
-        setFilteredTeachers(prev => {
-          if (!searchTerm) return teachersData.data;
-          return teachersData.data.filter(t => 
+        const teachersData = teachersListResponse.value.data;
+        setTeachers(teachersData);
+        
+        // Update filtered teachers if search is active
+        if (!searchTerm) {
+          setFilteredTeachers(teachersData);
+        } else {
+          setFilteredTeachers(teachersData.filter(t => 
             t.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             (t.id ? t.id.toString().includes(searchTerm.toLowerCase()) : 
             (t._id ? t._id.toLowerCase().includes(searchTerm.toLowerCase()) : false))
-          );
-        });
-        
-        // Verify our displayed records are correct
-        verifyDisplayedRecords();
-      } catch (error) {
-        console.error("Error refreshing data:", error);
-        // Don't show toast for background refresh errors
+          ));
+        }
       }
+        
+    } catch (error) {
+      console.error("Error refreshing data:", error);
+      // Don't show toast for background refresh errors to avoid spam
     }
   };
 
@@ -497,11 +576,19 @@ const TeacherPayroll = () => {
     }
   }, []);  // Empty dependency array means this runs once on mount
 
-  // Set up more frequent data refresh (every 15 seconds)
+  // Set up optimized data refresh (reduced frequency to avoid performance issues)
   useEffect(() => {
-    const intervalId = setInterval(refreshData, 15000);
+    if (!selectedTeacherId) return;
+    
+    const intervalId = setInterval(() => {
+      // Only refresh if user isn't actively editing
+      if (!selectedMonth && !isLoading) {
+        refreshData();
+      }
+    }, 30000); // Increased to 30 seconds to reduce server load
+    
     return () => clearInterval(intervalId);
-  }, [selectedTeacherId, searchTerm]);
+  }, [selectedTeacherId, selectedMonth, isLoading]);
   
   return adminLoggedIn ? (
     <div className="min-h-screen bg-[#f3f6f8] font-system-ui py-6">

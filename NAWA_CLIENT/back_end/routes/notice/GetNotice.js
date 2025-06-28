@@ -17,33 +17,6 @@ router.post("/create", verifyAdmin, async (req, res) => {
   }
 });
 
-// Delete notice (Admin only)
-router.delete("/:id", verifyAdmin, async (req, res) => {
-  try {
-    const noticeId = req.params.id;
-    console.log("Attempting to delete notice with ID:", noticeId);
-    
-    const notice = await Notice.findByPk(noticeId);
-    if (!notice) {
-      return res.status(404).json({ message: "Notice not found" });
-    }
-    
-    await notice.destroy();
-    console.log("Successfully deleted notice with ID:", noticeId);
-    
-    res.json({ 
-      message: "Notice deleted successfully",
-      deletedId: noticeId
-    });
-  } catch (error) {
-    console.error("Error deleting notice:", error);
-    res.status(500).json({ 
-      message: "Failed to delete notice", 
-      error: error.message 
-    });
-  }
-});
-
 // Static routes should come BEFORE dynamic/parameterized routes like /:id
 
 // Public route - anyone can access without login
@@ -141,6 +114,39 @@ router.get("/:id", verifyToken, async (req, res) => {
   } catch (error) {
     console.error("Error fetching notice:", error);
     res.status(500).json({ message: error.message });
+  }
+});
+
+// Delete notice (Admin only) - MUST COME AFTER ALL OTHER ROUTES
+router.delete("/:id", verifyAdmin, async (req, res) => {
+  try {
+    const noticeId = req.params.id;
+    console.log("Attempting to delete notice with ID:", noticeId);
+    
+    if (!noticeId || isNaN(noticeId)) {
+      return res.status(400).json({ message: "Invalid notice ID" });
+    }
+    
+    const notice = await Notice.findByPk(noticeId);
+    if (!notice) {
+      return res.status(404).json({ message: "Notice not found" });
+    }
+    
+    await notice.destroy();
+    console.log("Successfully deleted notice with ID:", noticeId);
+    
+    res.status(200).json({ 
+      success: true,
+      message: "Notice deleted successfully",
+      deletedId: parseInt(noticeId)
+    });
+  } catch (error) {
+    console.error("Error deleting notice:", error);
+    res.status(500).json({ 
+      success: false,
+      message: "Failed to delete notice", 
+      error: error.message 
+    });
   }
 });
 
