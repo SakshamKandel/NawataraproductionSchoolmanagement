@@ -45,7 +45,8 @@ const Teacher = sequelize.define('Teacher', {
     allowNull: true
   }
 }, {
-  timestamps: true
+  timestamps: true,
+  tableName: 'Teachers'
 });
 
 // Teacher.hasMany(TeacherNotice, { foreignKey: 'teacherId', as: 'notices' }); // REMOVE this line from here

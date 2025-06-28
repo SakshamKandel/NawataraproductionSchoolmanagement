@@ -67,7 +67,8 @@ const Student = sequelize.define('Student', {
     allowNull: false
   }
 }, {
-  timestamps: true
+  timestamps: true,
+  tableName: 'Students'
 });
 
 export default Student; 

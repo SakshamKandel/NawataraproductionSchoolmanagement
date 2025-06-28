@@ -5,6 +5,9 @@ const StudentFee = sequelize.define('StudentFee', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   studentID: { type: DataTypes.INTEGER, allowNull: false },
   records: { type: DataTypes.JSON, allowNull: false }
-}, { timestamps: true });
+}, { 
+  timestamps: true,
+  tableName: 'StudentFees'
+});
 
 export default StudentFee; 
