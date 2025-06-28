@@ -1,0 +1,517 @@
+/* Enhanced Calendar Styles - LinkedIn-inspired Professional Design */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* LinkedIn-style color palette */
+:root {
+  --linkedin-blue: #0a66c2;
+  --linkedin-dark-blue: #004182;
+  --linkedin-light-blue: #378fe9;
+  --linkedin-bg: #f4f2ee;
+  --linkedin-white: #ffffff;
+  --linkedin-gray-50: #fafafa;
+  --linkedin-gray-100: #f3f2ef;
+  --linkedin-gray-200: #e9e5df;
+  --linkedin-gray-300: #d4d2ce;
+  --linkedin-gray-600: #666666;
+  --linkedin-gray-700: #404040;
+  --linkedin-gray-900: #1d1d1d;
+  --linkedin-success: #057642;
+  --linkedin-warning: #915907;
+  --linkedin-error: #cc1016;
+}
+
+/* Custom animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes gentlePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+/* Calendar specific styles */
+.calendar-container {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* LinkedIn-style glass morphism */
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* Professional gradient backgrounds */
+.gradient-bg {
+  background: linear-gradient(135deg, var(--linkedin-blue) 0%, var(--linkedin-dark-blue) 100%);
+}
+
+.calendar-day {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+}
+
+.calendar-day:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: var(--linkedin-gray-200);
+}
+
+/* LinkedIn-style event pills */
+.event-pill {
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  background: linear-gradient(135deg, var(--color-start), var(--color-end));
+}
+
+.event-pill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transition: left 0.3s ease;
+}
+
+.event-pill:hover::before {
+  left: 100%;
+}
+
+.event-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Professional calendar day styling */
+.calendar-day-cell {
+  min-height: 100px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.calendar-day-cell:hover {
+  border-color: #cbd5e1;
+  background-color: #f8fafc;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.calendar-day-today {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  border-color: #3b82f6;
+}
+
+.calendar-day-selected {
+  background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+  border-color: #6366f1;
+}
+
+/* Event type specific colors - more muted LinkedIn style */
+.event-holiday {
+  --color-start: #ef4444;
+  --color-end: #dc2626;
+}
+
+.event-notice {
+  --color-start: #3b82f6;
+  --color-end: #2563eb;
+}
+
+.event-exam {
+  --color-start: #f59e0b;
+  --color-end: #d97706;
+}
+
+.event-meeting {
+  --color-start: #10b981;
+  --color-end: #059669;
+}
+
+.event-event {
+  --color-start: #64748b;
+  --color-end: #475569;
+}
+
+.multi-day-start {
+  border-top-right-radius: 4px !important;
+  border-bottom-right-radius: 4px !important;
+  position: relative;
+}
+
+.multi-day-middle {
+  border-radius: 0 !important;
+}
+
+.multi-day-end {
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
+}
+
+/* Professional mobile optimizations */
+@media (max-width: 768px) {
+  .calendar-day {
+    min-height: 90px;
+    padding: 6px;
+  }
+  
+  .event-pill {
+    font-size: 10px;
+    padding: 3px 6px;
+    margin-bottom: 2px;
+    font-weight: 500;
+  }
+  
+  .calendar-header {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+  
+  .calendar-controls {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .modal-content {
+    margin: 16px;
+    max-height: calc(100vh - 32px);
+  }
+}
+
+@media (max-width: 640px) {
+  .calendar-day {
+    min-height: 70px;
+    padding: 4px;
+  }
+  
+  .day-number {
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .event-pill {
+    font-size: 9px;
+    padding: 2px 4px;
+    font-weight: 500;
+  }
+  
+  .sidebar-title {
+    font-size: 16px;
+  }
+  
+  .event-card {
+    padding: 12px;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .calendar-day {
+    min-height: 60px;
+    padding: 2px;
+  }
+  
+  .event-pill {
+    font-size: 8px;
+    padding: 1px 3px;
+  }
+  
+  .day-number {
+    font-size: 11px;
+  }
+}
+
+/* Professional scrollbar styling */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #cbd5e1, #94a3b8);
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #94a3b8, #64748b);
+}
+
+.custom-scrollbar::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* LinkedIn-style loading skeleton */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 12px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Professional button styles */
+.btn-hover {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+}
+
+.btn-hover:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.btn-hover:active {
+  transform: translateY(0);
+}
+
+/* Modal backdrop with professional blur */
+.modal-overlay {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  animation: slideInUp 0.2s ease-out;
+}
+
+/* Event type colors - LinkedIn inspired */
+.event-notice {
+  background: linear-gradient(135deg, var(--linkedin-blue), var(--linkedin-dark-blue));
+}
+
+.event-event {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+}
+
+.event-holiday {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.event-exam {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.event-meeting {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+/* Professional focus states */
+.calendar-day:focus,
+.event-pill:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--linkedin-blue);
+  outline-offset: 2px;
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark mode support with LinkedIn-style colors */
+@media (prefers-color-scheme: dark) {
+  .glass-morphism {
+    background: rgba(31, 41, 55, 0.95);
+    border: 1px solid rgba(75, 85, 99, 0.3);
+  }
+  
+  :root {
+    --linkedin-bg: #1b1f23;
+    --linkedin-white: #1b1f23;
+    --linkedin-gray-50: #2d3339;
+    --linkedin-gray-100: #38434f;
+  }
+}
+
+/* Print styles for professional documentation */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .calendar-container {
+    background: white !important;
+    font-size: 12px;
+  }
+  
+  .event-pill {
+    background: #000 !important;
+    color: #fff !important;
+    border: 1px solid #000;
+  }
+  
+  .modal-overlay,
+  .modal-content {
+    display: none !important;
+  }
+}
+
+/* High contrast mode for accessibility */
+@media (prefers-contrast: high) {
+  .event-pill {
+    border: 2px solid #000;
+    font-weight: 700;
+  }
+  
+  .calendar-day:hover {
+    border: 2px solid var(--linkedin-blue);
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .btn-hover:hover {
+    transform: none;
+  }
+  
+  .calendar-day:hover {
+    transform: none;
+  }
+}
+
+/* Professional utility classes */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Professional shadows */
+.shadow-professional {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-professional-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* LinkedIn-style border radius */
+.rounded-professional {
+  border-radius: 8px;
+}
+
+.rounded-professional-lg {
+  border-radius: 12px;
+}
+
+/* Professional spacing */
+.space-professional > * + * {
+  margin-top: 1rem;
+}
+
+.space-professional-sm > * + * {
+  margin-top: 0.5rem;
+}
+
+/* Performance optimizations */
+.calendar-day,
+.event-pill,
+.card-hover {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Professional typography */
+.text-professional {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+}
+
+.text-professional-heading {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}

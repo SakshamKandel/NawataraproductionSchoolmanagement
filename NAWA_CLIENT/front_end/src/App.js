@@ -1,0 +1,6 @@
+import NoticeDiagnostic from "./components/notices/NoticeDiagnostic";
+
+// ... existing code where routes are defined ...
+        <Route path="/notice" element={<Notice />} />
+        <Route path="/notice-diagnostic" element={<NoticeDiagnostic />} />
+// ... existing code ... 

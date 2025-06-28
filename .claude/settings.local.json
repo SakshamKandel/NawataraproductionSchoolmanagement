@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(npm start)",
+      "Bash(node:*)",
+      "Bash(ss:*)",
+      "Bash(systemctl status:*)",
+      "Bash(rg:*)",
+      "Bash(grep:*)",
+      "Bash(npm run build:prod:*)",
+      "Bash(npm run build:*)",
+      "Bash(ls:*)",
+      "Bash(chmod:*)",
+      "Bash(rm:*)",
+      "Bash(./deploy-cpanel.sh)",
+      "Bash(bash:*)",
+      "Bash(pkill:*)",
+      "Bash(true)"
+    ],
+    "deny": []
+  }
+}
