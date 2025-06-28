@@ -9,30 +9,29 @@ const Home = () => {
   const contextUse=useContext(contextCreate)
   return (
     <div className="min-h-screen bg-[#f3f2ef]">
-      {/* Welcome greeting banner - Enhanced for admin, standard for others */}
+      {/* Welcome greeting banner - Enhanced for admin, standard for others - MOBILE RESPONSIVE */}
       {(teacherLoggedIn || adminLoggedIn || studentLoggedIn) && (
-        <div className={`w-full ${adminLoggedIn ? 'bg-gradient-to-r from-white to-blue-50' : 'bg-white'} shadow-sm border-b border-gray-200 px-4 py-6 mb-6`}>
+        <div className={`w-full ${adminLoggedIn ? 'bg-gradient-to-r from-white to-blue-50' : 'bg-white'} shadow-sm border-b border-gray-200 px-3 sm:px-4 py-4 sm:py-6 mb-4 sm:mb-6`}>
           <div className="max-w-7xl w-full mx-auto">
             <div className="flex flex-col">
               {adminLoggedIn ? (
                 <>
-                  <div className="flex items-center">
-                    <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-[#0a66c2] font-bold mr-3">
+                  <div className="flex items-center flex-wrap">
+                    <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-blue-100 flex items-center justify-center text-[#0a66c2] font-bold mr-2 sm:mr-3 flex-shrink-0">
                       {contextUse.name ? contextUse.name.charAt(0).toUpperCase() : 'A'}
                     </div>
-                    <h2 className="text-3xl font-medium text-[#191919]">
-                      Welcome back, <span className="font-bold text-[#0a66c2]">{contextUse.name}</span>
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-medium text-[#191919] leading-tight">
+                      Welcome back, <span className="font-bold text-[#0a66c2] break-words">{contextUse.name}</span>
                     </h2>
                   </div>
-                  <p className="text-[#666666] mt-3 ml-13 pl-0.5">Your school management dashboard is ready. Have a productive day!</p>
+                  <p className="text-sm sm:text-base text-[#666666] mt-2 sm:mt-3 ml-0 sm:ml-13 pl-0 sm:pl-0.5 leading-relaxed">Your school management dashboard is ready. Have a productive day!</p>
                 </>
               ) : (
                 <>
-                  <h2 className="text-2xl font-medium text-[#191919]">
-                    Welcome back, <span className="font-bold text-[#0a66c2]">{contextUse.name}</span>
+                  <h2 className="text-lg sm:text-xl lg:text-2xl font-medium text-[#191919] leading-tight">
+                    Welcome back, <span className="font-bold text-[#0a66c2] break-words">{contextUse.name}</span>
                   </h2>
-                  <p className="text-[#666666] mt-1">Let's manage your school administration efficiently today.</p>
-                 
+                  <p className="text-sm sm:text-base text-[#666666] mt-1 sm:mt-1 leading-relaxed">Let's manage your school administration efficiently today.</p>
                 </>
               )}
             </div>
@@ -42,28 +41,28 @@ const Home = () => {
 
       {/* Main content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10 lg:py-14">
-        {/* Hero section - Full width without image */}
-        <div className="bg-white rounded-lg shadow border border-gray-200 overflow-hidden mb-5">
-          <div className="p-6 md:p-8">
+        {/* Hero section - Full width without image - MOBILE RESPONSIVE */}
+        <div className="bg-white rounded-lg shadow border border-gray-200 overflow-hidden mb-4 sm:mb-5">
+          <div className="p-4 sm:p-6 md:p-8">
             <div className="flex flex-col justify-center max-w-3xl">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#191919] leading-tight">
-                <span className="block mb-2 text-[#0a66c2]">Nawa Tara English School</span>
-                <span className="block">Shaping Tomorrow's Leaders Today</span>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#191919] leading-tight">
+                <span className="block mb-2 text-[#0a66c2] break-words">Nawa Tara English School</span>
+                <span className="block break-words">Shaping Tomorrow's Leaders Today</span>
               </h1>
               
-              <div className="h-1 w-20 bg-[#0a66c2] my-4 transition-all duration-300 hover:w-32"></div>
+              <div className="h-1 w-16 sm:w-20 bg-[#0a66c2] my-3 sm:my-4 transition-all duration-300 hover:w-24 sm:hover:w-32"></div>
               
-              <p className="text-lg text-[#666666] max-w-2xl leading-relaxed">
+              <p className="text-base sm:text-lg text-[#666666] max-w-2xl leading-relaxed">
                 Providing quality education since 2070 BS, we focus on academic excellence, 
                 character development, and innovative learning approaches.
               </p>
               
-              <div className="mt-8 flex flex-wrap gap-4">
-                <Link to="/notice">
-                  <button className="group relative px-8 py-3 text-base font-medium bg-[#0a66c2] text-white rounded transition-all duration-300 hover:bg-[#004182] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0a66c2] overflow-hidden">
-                    <span className="relative z-10 flex items-center">
+              <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <Link to="/notice" className="w-full sm:w-auto">
+                  <button className="group relative w-full sm:w-auto px-6 sm:px-8 py-3 text-sm sm:text-base font-medium bg-[#0a66c2] text-white rounded transition-all duration-300 hover:bg-[#004182] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0a66c2] overflow-hidden">
+                    <span className="relative z-10 flex items-center justify-center">
                       View Notices
-                      <svg className="ml-2 -mr-1 w-5 h-5 transition-transform duration-300 transform group-hover:translate-x-1" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="ml-2 -mr-1 w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 transform group-hover:translate-x-1" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
                       </svg>
                     </span>
@@ -71,9 +70,9 @@ const Home = () => {
                   </button>
                 </Link>
                 
-                <Link to="/about-us">
-                  <button className="group relative px-8 py-3 text-base font-medium bg-white text-[#0a66c2] border border-[#0a66c2] rounded transition-all duration-300 hover:bg-[#f3f9ff] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0a66c2]">
-                    <span className="relative z-10 flex items-center">
+                <Link to="/about-us" className="w-full sm:w-auto">
+                  <button className="group relative w-full sm:w-auto px-6 sm:px-8 py-3 text-sm sm:text-base font-medium bg-white text-[#0a66c2] border border-[#0a66c2] rounded transition-all duration-300 hover:bg-[#f3f9ff] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0a66c2]">
+                    <span className="relative z-10 flex items-center justify-center">
                       About Us
                     </span>
                     <span className="absolute bottom-0 left-0 w-full h-1 bg-[#0a66c2] transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>

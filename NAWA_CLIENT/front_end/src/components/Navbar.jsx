@@ -98,15 +98,15 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div
-            className="hidden md:flex md:items-center md:gap-1"
+            className="flex items-center gap-1 overflow-x-auto md:overflow-x-visible"
             id="navbar-sticky"
           >
-            <ul className="flex items-center gap-1">
+            <ul className="flex items-center gap-1 flex-nowrap min-w-max">
               {/* Essential links that always show */}
               <li>
                 <Link
                   to="/"
-                  className={`inline-block px-3 py-2 rounded-md text-sm font-medium relative group ${
+                  className={`inline-block px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm font-medium relative group whitespace-nowrap ${
                     location.pathname === "/"
                       ? "text-gray-900 bg-gray-100"
                       : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
@@ -120,7 +120,7 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/about-us"
-                  className={`inline-block px-3 py-2 rounded-md text-sm font-medium relative group ${
+                  className={`inline-block px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm font-medium relative group whitespace-nowrap ${
                     location.pathname === "/about-us"
                       ? "text-gray-900 bg-gray-100"
                       : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
@@ -133,7 +133,7 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/notice"
-                  className={`inline-block px-3 py-2 rounded-md text-sm font-medium relative group ${
+                  className={`inline-block px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm font-medium relative group whitespace-nowrap ${
                     location.pathname === "/notice"
                       ? "text-gray-900 bg-gray-100"
                       : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
@@ -146,7 +146,7 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/contact-us"
-                  className={`inline-block px-3 py-2 rounded-md text-sm font-medium relative group ${
+                  className={`inline-block px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm font-medium relative group whitespace-nowrap ${
                     location.pathname === "/contact-us"
                       ? "text-gray-900 bg-gray-100"
                       : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
@@ -159,7 +159,7 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/calendar"
-                  className={`inline-block px-3 py-2 rounded-md text-sm font-medium relative group ${
+                  className={`inline-block px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm font-medium relative group whitespace-nowrap ${
                     location.pathname === "/calendar"
                       ? "text-blue-900 bg-blue-100"
                       : "text-gray-600 hover:text-blue-900 hover:bg-blue-50"
@@ -176,7 +176,7 @@ const Navbar = () => {
                   <li>
                     <Link
                       to="/routine"
-                      className={`inline-block px-3 py-2 rounded-md text-sm font-medium relative group ${
+                      className={`inline-block px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm font-medium relative group whitespace-nowrap ${
                         location.pathname === "/routine"
                           ? "text-gray-900 bg-gray-100"
                           : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
@@ -203,7 +203,7 @@ const Navbar = () => {
                   <li>
                     <Link
                       to="/my-salary"
-                      className={`inline-block px-3 py-2 rounded-md text-sm font-medium relative group ${
+                      className={`inline-block px-2 sm:px-3 py-2 rounded-md text-xs sm:text-sm font-medium relative group whitespace-nowrap ${
                         location.pathname === "/my-salary"
                           ? "text-gray-900 bg-gray-100"
                           : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
@@ -479,10 +479,10 @@ const Navbar = () => {
                   <Link to={"/login-form"}>
                     <button
                       type="button"
-                      className="inline-flex items-center justify-center px-4 py-1.5 text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200"
+                      className="inline-flex items-center justify-center px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-200"
                     >
                       <svg
-                        className="w-4 h-4 mr-1.5"
+                        className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-1.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -499,11 +499,11 @@ const Navbar = () => {
                 ) : (
                   <button
                     type="button"
-                    className="inline-flex items-center justify-center px-4 py-1.5 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-1 transition-all duration-200"
+                    className="inline-flex items-center justify-center px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-1 transition-all duration-200"
                     onClick={() => setShowLogoutModal(true)}
                   >
                     <svg
-                      className="w-4 h-4 mr-1.5 text-gray-500"
+                      className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-1.5 text-gray-500"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
@@ -521,8 +521,8 @@ const Navbar = () => {
             </ul>
           </div>
 
-          {/* Mobile menu controls - visible only on mobile */}
-          <div className="md:hidden flex items-center space-x-3 relative z-[9999]">
+          {/* Mobile menu controls - visible only on very small screens */}
+          <div className="sm:hidden flex items-center space-x-3 relative z-[9999]">
             {/* Login/Logout button */}
             {!teacherLoggedIn && !studentLoggedIn && !adminLoggedIn ? (
               <Link to={"/login-form"}>
@@ -567,17 +567,18 @@ const Navbar = () => {
               </button>
             )}
 
-            {/* Mobile menu toggle button */}
+            {/* Mobile menu toggle button - Enhanced */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               type="button"
-              className="flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500"
-              aria-expanded="false"
+              className="flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-all duration-200 border border-gray-300 hover:border-gray-400"
+              aria-expanded={mobileMenuOpen}
+              aria-label="Toggle navigation menu"
             >
-              <span className="sr-only">Open main menu</span>
+              <span className="sr-only">{mobileMenuOpen ? 'Close' : 'Open'} main menu</span>
               {/* Icon when menu is closed */}
               <svg
-                className={`${mobileMenuOpen ? "hidden" : "block"} h-6 w-6`}
+                className={`${mobileMenuOpen ? "hidden" : "block"} h-6 w-6 transition-transform duration-200`}
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -593,7 +594,7 @@ const Navbar = () => {
               </svg>
               {/* Icon when menu is open */}
               <svg
-                className={`${mobileMenuOpen ? "block" : "hidden"} h-6 w-6`}
+                className={`${mobileMenuOpen ? "block" : "hidden"} h-6 w-6 transition-transform duration-200`}
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -611,12 +612,21 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile navigation menu - White panel, transparent overlay */}
+        {/* Mobile overlay */}
+        {mobileMenuOpen && (
+          <div 
+            className="sm:hidden fixed inset-0 bg-black bg-opacity-50 z-[9980]"
+            style={{ top: "4.7rem" }}
+            onClick={() => setMobileMenuOpen(false)}
+          />
+        )}
+
+        {/* Mobile navigation menu - Improved responsive design */}
         <div
-          className={`md:hidden fixed inset-y-0 right-0 w-[85%] max-w-sm bg-white shadow-xl z-[9990] transform transition-transform duration-300 ease-in-out ${
+          className={`sm:hidden fixed inset-y-0 right-0 w-[90vw] max-w-sm bg-white shadow-xl z-[9990] transform transition-transform duration-300 ease-in-out ${
             mobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
-          style={{ top: "4.7rem", height: "calc(100vh - 4.7rem)" }}
+          style={{ top: "4.7rem", height: "calc(100vh - 4.7rem)", maxHeight: 'calc(100vh - 4.7rem)' }}
         >
           {/* User profile section (white background) */}
           <div className="px-4 py-3 bg-white border-b border-gray-200">
@@ -633,21 +643,21 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Navigation links */}
-          <div className="overflow-y-auto h-full">
-            <nav className="flex flex-col divide-y divide-gray-200 bg-white">
+          {/* Navigation links - Enhanced for mobile */}
+          <div className="overflow-y-auto h-full pb-8" style={{ WebkitOverflowScrolling: 'touch', maxHeight: '100%' }}>
+            <nav className="flex flex-col divide-y divide-gray-100 bg-white">
               {/* Home */}
               <Link
                 to="/"
                 onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center px-4 py-3 relative ${
+                className={`flex items-center px-4 py-4 relative transition-colors duration-200 ${
                   location.pathname === "/"
-                    ? "text-gray-900 bg-gray-50 font-medium"
-                    : "text-gray-700 hover:bg-gray-50"
+                    ? "text-blue-900 bg-blue-50 font-medium"
+                    : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
                 }`}
               >
                 {location.pathname === "/" && (
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-300"></div>
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
                 )}
                 <svg
                   className={`w-5 h-5 mr-3 ${
@@ -672,14 +682,14 @@ const Navbar = () => {
               <Link
                 to="/about-us"
                 onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center px-4 py-3 relative ${
+                className={`flex items-center px-4 py-4 relative transition-colors duration-200 ${
                   location.pathname === "/about-us"
-                    ? "text-gray-900 bg-gray-50 font-medium"
-                    : "text-gray-700 hover:bg-gray-50"
+                    ? "text-blue-900 bg-blue-50 font-medium"
+                    : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
                 }`}
               >
                 {location.pathname === "/about-us" && (
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-300"></div>
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
                 )}
                 <svg
                   className={`w-5 h-5 mr-3 ${
@@ -704,14 +714,14 @@ const Navbar = () => {
               <Link
                 to="/notice"
                 onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center px-4 py-3 relative ${
+                className={`flex items-center px-4 py-4 relative transition-colors duration-200 ${
                   location.pathname === "/notice"
-                    ? "text-gray-900 bg-gray-50 font-medium"
-                    : "text-gray-700 hover:bg-gray-50"
+                    ? "text-blue-900 bg-blue-50 font-medium"
+                    : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
                 }`}
               >
                 {location.pathname === "/notice" && (
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-300"></div>
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
                 )}
                 <svg
                   className={`w-5 h-5 mr-3 ${
@@ -736,14 +746,14 @@ const Navbar = () => {
               <Link
                 to="/contact-us"
                 onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center px-4 py-3 relative ${
+                className={`flex items-center px-4 py-4 relative transition-colors duration-200 ${
                   location.pathname === "/contact-us"
-                    ? "text-gray-900 bg-gray-50 font-medium"
-                    : "text-gray-700 hover:bg-gray-50"
+                    ? "text-blue-900 bg-blue-50 font-medium"
+                    : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
                 }`}
               >
                 {location.pathname === "/contact-us" && (
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-300"></div>
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
                 )}
                 <svg
                   className={`w-5 h-5 mr-3 ${
@@ -770,14 +780,14 @@ const Navbar = () => {
                 <Link
                   to="/routine"
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center px-4 py-3 relative ${
+                  className={`flex items-center px-4 py-4 relative transition-colors duration-200 ${
                     location.pathname === "/routine"
-                        ? "text-gray-900 bg-gray-50 font-medium"
-                      : "text-gray-700 hover:bg-gray-50"
+                        ? "text-blue-900 bg-blue-50 font-medium"
+                      : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
                   }`}
                 >
                   {location.pathname === "/routine" && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-300"></div>
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
                   )}
                   <svg
                     className={`w-5 h-5 mr-3 ${
@@ -801,14 +811,14 @@ const Navbar = () => {
                 <Link
                   to="/teacher-student-list"
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center px-4 py-3 relative ${
+                  className={`flex items-center px-4 py-4 relative transition-colors duration-200 ${
                     location.pathname === "/teacher-student-list"
-                        ? "text-gray-900 bg-gray-50 font-medium"
-                      : "text-gray-700 hover:bg-gray-50"
+                        ? "text-blue-900 bg-blue-50 font-medium"
+                      : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
                   }`}
                 >
                   {location.pathname === "/teacher-student-list" && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-300"></div>
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
                   )}
                   <svg
                     className={`w-5 h-5 mr-3 ${
@@ -841,14 +851,14 @@ const Navbar = () => {
                   <Link
                     to="/routines"
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center px-4 py-3 relative ${
+                    className={`flex items-center px-4 py-4 relative transition-colors duration-200 ${
                       location.pathname === "/routines"
-                        ? "text-gray-900 bg-gray-50 font-medium"
-                        : "text-gray-700 hover:bg-gray-50"
+                        ? "text-blue-900 bg-blue-50 font-medium"
+                        : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
                     }`}
                   >
                     {location.pathname === "/routines" && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-300"></div>
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
                     )}
                     <svg
                       className={`w-5 h-5 mr-3 ${
@@ -872,14 +882,14 @@ const Navbar = () => {
                   <Link
                     to="/create-notice"
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center px-4 py-3 relative ${
+                    className={`flex items-center px-4 py-4 relative transition-colors duration-200 ${
                       location.pathname === "/create-notice"
-                        ? "text-gray-900 bg-gray-50 font-medium"
-                        : "text-gray-700 hover:bg-gray-50"
+                        ? "text-blue-900 bg-blue-50 font-medium"
+                        : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
                     }`}
                   >
                     {location.pathname === "/create-notice" && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-300"></div>
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
                     )}
                     <svg
                       className={`w-5 h-5 mr-3 ${
@@ -890,27 +900,53 @@ const Navbar = () => {
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
                     >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                    Create Notice
+                  </Link>
+
+                  <Link
+                    to="/view-teachers-payroll"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center px-4 py-4 relative transition-colors duration-200 ${
+                      location.pathname === "/view-teachers-payroll"
+                        ? "text-blue-900 bg-blue-50 font-medium"
+                        : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
+                    }`}
+                  >
+                    {location.pathname === "/view-teachers-payroll" && (
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
+                    )}
+                    <svg
+                      className={`w-5 h-5 mr-3 ${
+                        location.pathname === "/view-teachers-payroll" ? "text-gray-900" : "text-gray-500"
+                      }`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth="2"
-                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
                       ></path>
                     </svg>
-                    Notice Board
+                    Teacher Payroll
                   </Link>
 
                   <Link
                     to="/fetch-students"
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center px-4 py-3 relative ${
+                    className={`flex items-center px-4 py-4 relative transition-colors duration-200 ${
                       location.pathname === "/fetch-students"
-                        ? "text-gray-900 bg-gray-50 font-medium"
-                        : "text-gray-700 hover:bg-gray-50"
+                        ? "text-blue-900 bg-blue-50 font-medium"
+                        : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
                     }`}
                   >
                     {location.pathname === "/fetch-students" && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-300"></div>
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
                     )}
                     <svg
                       className={`w-5 h-5 mr-3 ${
@@ -928,24 +964,123 @@ const Navbar = () => {
                         d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
                       ></path>
                     </svg>
-                    Students
+                    Student Management
                   </Link>
 
+                  {adminLoggedIn && hasPromotionAccess && (
+                    <Link
+                      to="/admin/student-promotion"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center px-4 py-4 relative transition-colors duration-200 ${
+                        location.pathname === "/admin/student-promotion"
+                          ? "text-blue-900 bg-blue-50 font-medium"
+                          : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
+                      }`}
+                    >
+                      {location.pathname === "/admin/student-promotion" && (
+                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
+                      )}
+                      <svg
+                        className={`w-5 h-5 mr-3 ${
+                          location.pathname === "/admin/student-promotion" ? "text-gray-900" : "text-gray-500"
+                        }`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                        ></path>
+                      </svg>
+                      Student Promotion
+                    </Link>
+                  )}
+
+                  {adminLoggedIn && hasPromotionAccess && (
+                    <Link
+                      to="/admin/student-data"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center px-4 py-4 relative transition-colors duration-200 ${
+                        location.pathname === "/admin/student-data"
+                          ? "text-blue-900 bg-blue-50 font-medium"
+                          : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
+                      }`}
+                    >
+                      {location.pathname === "/admin/student-data" && (
+                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
+                      )}
+                      <svg
+                        className={`w-5 h-5 mr-3 ${
+                          location.pathname === "/admin/student-data" ? "text-gray-900" : "text-gray-500"
+                        }`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                        ></path>
+                      </svg>
+                      Import/Export Data
+                    </Link>
+                  )}
+
+                  {isSuperAdmin && (
+                    <Link
+                      to="/admin/manage-admins"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center px-4 py-4 relative transition-colors duration-200 ${
+                        location.pathname === "/admin/manage-admins"
+                          ? "text-blue-900 bg-blue-50 font-medium"
+                          : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
+                      }`}
+                    >
+                      {location.pathname === "/admin/manage-admins" && (
+                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
+                      )}
+                      <svg
+                        className={`w-5 h-5 mr-3 ${
+                          location.pathname === "/admin/manage-admins" ? "text-gray-900" : "text-gray-500"
+                        }`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                        ></path>
+                      </svg>
+                      Manage Admins
+                    </Link>
+                  )}
+
                   <Link
-                    to="/view-teachers-payroll"
+                    to="/admin/remove-teacher"
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center px-4 py-3 relative ${
-                      location.pathname === "/view-teachers-payroll"
-                        ? "text-gray-900 bg-gray-50 font-medium"
-                        : "text-gray-700 hover:bg-gray-50"
+                    className={`flex items-center px-4 py-4 relative transition-colors duration-200 ${
+                      location.pathname === "/admin/remove-teacher"
+                        ? "text-blue-900 bg-blue-50 font-medium"
+                        : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
                     }`}
                   >
-                    {location.pathname === "/view-teachers-payroll" && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-300"></div>
+                    {location.pathname === "/admin/remove-teacher" && (
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
                     )}
                     <svg
                       className={`w-5 h-5 mr-3 ${
-                        location.pathname === "/view-teachers-payroll" ? "text-gray-900" : "text-gray-500"
+                        location.pathname === "/admin/remove-teacher" ? "text-gray-900" : "text-gray-500"
                       }`}
                       fill="none"
                       stroke="currentColor"
@@ -956,23 +1091,56 @@ const Navbar = () => {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth="2"
-                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                      ></path>
+                        d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm7.707 3.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
                     </svg>
-                    Teachers Payroll
+                    Manage Teachers
+                  </Link>
+
+                  <Link
+                    to="/manage-fee-structures"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center px-4 py-4 relative transition-colors duration-200 ${
+                      location.pathname === "/manage-fee-structures"
+                        ? "text-blue-900 bg-blue-50 font-medium"
+                        : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
+                    }`}
+                  >
+                    {location.pathname === "/manage-fee-structures" && (
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
+                    )}
+                    <svg
+                      className={`w-5 h-5 mr-3 ${
+                        location.pathname === "/manage-fee-structures" ? "text-gray-900" : "text-gray-500"
+                      }`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm7.707 3.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Fee Management
                   </Link>
 
                   <Link
                     to="/admin/teacher-notices"
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center px-4 py-3 relative ${
+                    className={`flex items-center px-4 py-4 relative transition-colors duration-200 ${
                       location.pathname === "/admin/teacher-notices"
-                        ? "text-gray-900 bg-gray-50 font-medium"
-                        : "text-gray-700 hover:bg-gray-50"
+                        ? "text-blue-900 bg-blue-50 font-medium"
+                        : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
                     }`}
                   >
                     {location.pathname === "/admin/teacher-notices" && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-300"></div>
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
                     )}
                     <svg
                       className={`w-5 h-5 mr-3 ${
@@ -988,186 +1156,9 @@ const Navbar = () => {
                         strokeLinejoin="round"
                         strokeWidth="2"
                         d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                      />
+                      ></path>
                     </svg>
                     Teacher Alerts
-                  </Link>
-
-                  <Link
-                    to="/admin/remove-teacher"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center px-4 py-3 relative ${
-                      location.pathname === "/admin/remove-teacher"
-                        ? "text-gray-900 bg-gray-50 font-medium"
-                        : "text-gray-700 hover:bg-gray-50"
-                    }`}
-                  >
-                    {location.pathname === "/admin/remove-teacher" && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-300"></div>
-                    )}
-                    <svg
-                      className={`w-5 h-5 mr-3 ${location.pathname === "/admin/remove-teacher" ? "text-gray-900" : "text-gray-500"}`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
-                    </svg>
-                    Manage Teachers
-                  </Link>
-
-                  <Link
-                    to="/manage-fee-structures"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center px-4 py-3 relative ${
-                      location.pathname === "/manage-fee-structures"
-                        ? "text-gray-900 bg-gray-50 font-medium"
-                        : "text-gray-700 hover:bg-gray-50"
-                    }`}
-                  >
-                    {location.pathname === "/manage-fee-structures" && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-300"></div>
-                    )}
-                    <FaMoneyBillWave className={`w-5 h-5 mr-3 ${
-                        location.pathname === "/manage-fee-structures" ? "text-cyan-500" : "text-gray-500"
-                      }`} />
-                    Manage Fee Structures
-                  </Link>
-
-
-                  {/* Student Promotion - Developer and Super Admin only */}
-                  {adminLoggedIn && hasPromotionAccess && (
-                    <Link
-                      to="/admin/student-promotion"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center px-4 py-3 relative ${location.pathname === "/admin/student-promotion" ? "text-gray-900 bg-gray-50 font-medium" : "text-gray-700 hover:bg-gray-50"}`}
-                    >
-                      <FaGraduationCap className={`w-5 h-5 mr-3 ${location.pathname === "/admin/student-promotion" ? "text-gray-900" : "text-gray-500"}`} />
-                      Student Promotion
-                    </Link>
-                  )}
-
-                  {/* Student Data Import/Export - Developer and Super Admin only */}
-                  {adminLoggedIn && hasPromotionAccess && (
-                    <Link
-                      to="/admin/student-data"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center px-4 py-3 relative ${location.pathname === "/admin/student-data" ? "text-gray-900 bg-gray-50 font-medium" : "text-gray-700 hover:bg-gray-50"}`}
-                    >
-                      <FaFileExcel className={`w-5 h-5 mr-3 ${location.pathname === "/admin/student-data" ? "text-gray-900" : "text-gray-500"}`} />
-                      Import/Export Data
-                    </Link>
-                  )}
-
-                  {/* Manage Admins - Only for main and developer admin */}
-                  {isSuperAdmin && (
-                    <Link
-                      to="/admin/manage-admins"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center px-4 py-3 relative ${location.pathname === "/admin/manage-admins" ? "text-gray-900 bg-gray-50 font-medium" : "text-gray-700 hover:bg-gray-50"}`}
-                    >
-                      <FaUserShield className={`w-5 h-5 mr-3 ${location.pathname === "/admin/manage-admins" ? "text-gray-900" : "text-gray-500"}`} />
-                      Manage Admins
-                    </Link>
-                  )}
-
-                  {/* Create Account Section */}
-                  <div className="py-2 px-4 bg-gray-50 border-t border-b border-gray-200">
-                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Create Account</p>
-                  </div>
-
-                  <Link
-                    to="/create-account-teacher"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center px-4 py-3 relative ${
-                      location.pathname === "/create-account-teacher"
-                        ? "text-gray-900 bg-gray-50 font-medium"
-                        : "text-gray-700 hover:bg-gray-50"
-                    }`}
-                  >
-                    {location.pathname === "/create-account-teacher" && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-300"></div>
-                    )}
-                    <svg
-                      className={`w-5 h-5 mr-3 ${
-                        location.pathname === "/create-account-teacher" ? "text-gray-900" : "text-gray-500"
-                      }`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                      ></path>
-                    </svg>
-                    Create Teacher
-                  </Link>
-
-                  <Link
-                    to="/create-account-student"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center px-4 py-3 relative ${
-                      location.pathname === "/create-account-student"
-                        ? "text-gray-900 bg-gray-50 font-medium"
-                        : "text-gray-700 hover:bg-gray-50"
-                    }`}
-                  >
-                    {location.pathname === "/create-account-student" && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-300"></div>
-                    )}
-                    <svg
-                      className={`w-5 h-5 mr-3 ${
-                        location.pathname === "/create-account-student" ? "text-gray-900" : "text-gray-500"
-                      }`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                      ></path>
-                    </svg>
-                    Create Student
-                  </Link>
-
-                  <Link
-                    to="/create-account-admin"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center px-4 py-3 relative ${
-                      location.pathname === "/create-account-admin"
-                        ? "text-gray-900 bg-gray-50 font-medium"
-                        : "text-gray-700 hover:bg-gray-50"
-                    }`}
-                  >
-                    {location.pathname === "/create-account-admin" && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-300"></div>
-                    )}
-                    <svg
-                      className={`w-5 h-5 mr-3 ${
-                        location.pathname === "/create-account-admin" ? "text-gray-900" : "text-gray-500"
-                      }`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                      ></path>
-                    </svg>
-                    Create Admin
                   </Link>
                 </>
               )}
@@ -1175,54 +1166,37 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      <div className="pt-20"></div> {/* Spacer for fixed navbar */}
 
-      {/* Custom Logout Confirmation Modal */}
+      {/* Logout Confirmation Modal */}
       {showLogoutModal && (
-        <div className="fixed inset-0 backdrop-blur-sm bg-white/30 flex items-center justify-center z-[99999] transition-all duration-200 ease-in-out animate-fade-in">
-          <div className="bg-white rounded-2xl px-8 py-6 flex flex-col items-center min-w-[340px] max-w-xs shadow-xl border border-gray-200 transform transition-all duration-200 ease-in-out animate-scale-in relative">
-            <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-white rounded-full shadow-lg p-2 border border-gray-100">
-              <svg className="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 11-6 0v-1" />
-              </svg>
+        <div className="fixed inset-0 flex items-center justify-center z-[9999]">
+          <div className="absolute inset-0 bg-black opacity-30"></div>
+          <div className="bg-white rounded-lg shadow-lg max-w-sm w-full z-50">
+            <div className="p-4 border-b">
+              <h3 className="text-lg font-semibold text-gray-800">Confirm Logout</h3>
             </div>
-            <h2 className="text-lg font-bold mb-2 text-gray-800 mt-6">Confirm Logout</h2>
-            <p className="mb-5 text-gray-600 text-sm">Are you sure you want to log out?</p>
-            <div className="flex justify-center gap-3 w-full">
+            <div className="p-4">
+              <p className="text-gray-600 text-sm">
+                Are you sure you want to log out? All unsaved changes will be lost.
+              </p>
+            </div>
+            <div className="flex justify-end p-4 border-t">
               <button
-                className="px-5 py-2 rounded-full bg-gray-600 text-white font-semibold hover:bg-gray-700 transition-colors duration-200 text-sm shadow"
-                onClick={handleLogout}
-              >
-                Yes, Log Out
-              </button>
-              <button
-                className="px-5 py-2 rounded-full bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition-colors duration-200 text-sm shadow"
                 onClick={() => setShowLogoutModal(false)}
+                className="px-4 py-2 text-sm text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition-all duration-200 mr-2"
               >
                 Cancel
+              </button>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 text-sm text-white bg-red-600 rounded-md hover:bg-red-700 transition-all duration-200"
+              >
+                Logout
               </button>
             </div>
           </div>
         </div>
       )}
-
-      {/* Add these styles at the end of the file */}
-      <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes scaleIn {
-          from { transform: scale(0.95); opacity: 0; }
-          to { transform: scale(1); opacity: 1; }
-        }
-        .animate-fade-in {
-          animation: fadeIn 0.2s ease-out;
-        }
-        .animate-scale-in {
-          animation: scaleIn 0.2s ease-out;
-        }
-      `}</style>
     </div>
   );
 };

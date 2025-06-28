@@ -53,8 +53,7 @@ const Footer = () => {
                   </svg>
                 </span>
                 <div className="text-gray-600 text-sm">
-                  <p>9800000000</p>
-                  <p>9811111111</p>
+                  <p>021460535</p>
                 </div>
               </li>
             </ul>

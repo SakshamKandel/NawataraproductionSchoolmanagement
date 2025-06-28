@@ -54,7 +54,7 @@ const ContactUs = () => {
                     </div>
                     <div>
                       <h4 className="text-base font-medium text-gray-900">Phone</h4>
-                      <p className="text-sm text-gray-600">9800000000</p>
+                      <p className="text-sm text-gray-600">021460535</p>
                     </div>
                   </div>
                   
@@ -141,7 +141,7 @@ const ContactUs = () => {
                       </svg>
                       admin@nawataraenglishschool.com
                     </a>
-                    <p className="text-sm text-gray-600 mt-1">9800000000 ext. 101</p>
+                    <p className="text-sm text-gray-600 mt-1">021460535</p>
                   </div>
                 </div>
               </div>
@@ -165,7 +165,7 @@ const ContactUs = () => {
                       </svg>
                       academics@nawataraenglishschool.com
                     </a>
-                    <p className="text-sm text-gray-600 mt-1">9800000000 ext. 202</p>
+                    <p className="text-sm text-gray-600 mt-1">021460535</p>
                   </div>
                 </div>
               </div>
@@ -189,7 +189,7 @@ const ContactUs = () => {
                       </svg>
                       finance@nawataraenglishschool.com
                     </a>
-                    <p className="text-sm text-gray-600 mt-1">9800000000 ext. 303</p>
+                    <p className="text-sm text-gray-600 mt-1">021460535</p>
                   </div>
                 </div>
               </div>
@@ -198,78 +198,35 @@ const ContactUs = () => {
         </div>
         
         {/* Facilities section - enhanced design */}
+        {/* Google Map Integration */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8 hover:shadow-md transition-shadow duration-300">
-          <div className="flex flex-col md:flex-row">
-            <div className="w-full md:w-1/2 p-6 flex flex-col justify-center">
-              <div className="inline-block mb-4">
-                <div className="flex items-center">
-                  <div className="h-10 w-10 rounded-full bg-[#0a66c2] flex items-center justify-center">
-                    <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-800 ml-3">Our Location</h3>
-                </div>
-                <div className="h-1 w-24 bg-[#0a66c2] mt-2 ml-13 rounded-full"></div>
+          <div className="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+            <h3 className="text-lg font-medium text-gray-800 flex items-center">
+              <div className="h-6 w-6 rounded-full bg-[#0a66c2] flex items-center justify-center mr-2">
+                <svg className="h-3 w-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" /></svg>
               </div>
-              
-              <p className="text-gray-600 mb-5">
-                Our school is conveniently located in Jamungacchi 04, Biratnagar, easily accessible with available transportation options.
-              </p>
-              
-              <div className="bg-gradient-to-r from-gray-50 to-white rounded-lg p-5 border border-gray-100">
-                <h4 className="text-base font-medium text-gray-800 mb-2 flex items-center">
-                  <svg className="h-4 w-4 mr-2 text-[#0a66c2]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                  </svg>
-                  Address
-                </h4>
-                <p className="text-sm text-gray-600 ml-6">Jamungacchi 04,<br/>Biratnagar, Morang, Nepal</p>
-                
-                <h4 className="text-base font-medium text-gray-800 mb-2 mt-5 flex items-center">
-                  <svg className="h-4 w-4 mr-2 text-[#0a66c2]" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
-                  </svg>
-                  Facilities
-                </h4>
-                <ul className="text-sm text-gray-600 ml-6 space-y-2">
-                  <li className="flex items-center">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#0a66c2] mr-2"></span>
-                    Transportation available for students
-                  </li>
-                  <li className="flex items-center">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#0a66c2] mr-2"></span>
-                    Well-equipped science and computer labs
-                  </li>
-                  <li className="flex items-center">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#0a66c2] mr-2"></span>
-                    Modern library and sports facilities
-                  </li>
-                </ul>
-              </div>
-            </div>
-            
-            <div className="w-full md:w-1/2 bg-gradient-to-br from-blue-50 to-white flex items-center justify-center text-center p-8">
-              <div className="transform hover:scale-105 transition-transform duration-300">
-                <svg className="mx-auto h-20 w-20 text-[#0a66c2]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                </svg>
-                <div className="relative mt-4">
-                  <div className="h-1 w-20 bg-[#0a66c2] mx-auto rounded-full"></div>
-                </div>
-                <p className="mt-6 text-xl font-medium text-gray-800">NAWA TARA ENGLISH SCHOOL</p>
-                <p className="text-base text-gray-600 mt-2">Jamungacchi 04, Biratnagar, Morang</p>
-                <a href="mailto:contact@nawataraenglishschool.com" 
-                   className="text-sm text-[#0a66c2] mt-2 font-medium hover:underline inline-flex items-center justify-center mt-3">
-                  <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                  </svg>
-                  contact@nawataraenglishschool.com
-                </a>
-              </div>
-            </div>
+              Our Location
+            </h3>
+          </div>
+          <div className="p-6 flex flex-col items-center justify-center">
+            <iframe
+              src="https://www.google.com/maps?q=Nabatara+School+(Branch+Of+Sirjana+BRT),+Biratnagar,+Nepal&output=embed"
+              width="100%"
+              height="350"
+              style={{ border: 0, borderRadius: '12px', minWidth: '300px' }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Nabatara School (Branch Of Sirjana BRT) Location"
+            ></iframe>
+            <a
+              href="https://maps.app.goo.gl/aQyaESg8zcd5AUj2A"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-block px-6 py-2 bg-[#0a66c2] text-white rounded-lg shadow hover:bg-[#004182] transition-colors text-base font-medium"
+            >
+              View on Google Maps
+            </a>
           </div>
         </div>
       </div>

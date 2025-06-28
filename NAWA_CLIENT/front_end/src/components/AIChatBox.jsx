@@ -400,7 +400,9 @@ const AIChatBox = () => {
       )}
       {/* Chatbox */}
       {isOpen && (
-        <div className="fixed bottom-8 right-8 z-[9999] w-full max-w-md h-[600px] bg-white rounded-2xl shadow-2xl border border-blue-200 flex flex-col transition-all duration-300">
+        <div
+          className="fixed bottom-2 left-1/2 -translate-x-1/2 z-[9999] w-[95vw] max-w-[95vw] h-[80vh] max-h-[80vh] bg-white rounded-2xl shadow-2xl border border-blue-200 flex flex-col transition-all duration-300 sm:bottom-8 sm:right-8 sm:left-auto sm:translate-x-0 sm:w-full sm:max-w-md sm:h-[600px] sm:max-h-[90vh]"
+        >
           {/* Header with close button */}
           <div className="bg-[#0a66c2] px-6 py-4 rounded-t-2xl flex justify-between items-center shadow-md">
             <div className="flex items-center gap-3">
@@ -551,4 +553,4 @@ const AIChatBox = () => {
   );
 };
 
-export default AIChatBox; 
+export default AIChatBox;
