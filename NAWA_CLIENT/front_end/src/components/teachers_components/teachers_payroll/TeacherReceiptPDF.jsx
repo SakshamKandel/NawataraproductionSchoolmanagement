@@ -282,8 +282,8 @@ const TeacherReceiptPDF = ({ data }) => {
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerLeftContent}>
-            <Text style={styles.schoolName}>Nawa Tara English School</Text>
-            <Text style={styles.schoolAddress}>Jamungacchi 04, Biratnagar, Morang, Nepal</Text>
+            <Text style={styles.schoolName}>NAWA School</Text>
+            <Text style={styles.schoolAddress}>Kathmandu, Nepal</Text>
             <Text style={styles.schoolAddress}>Phone: 021460535</Text>
           </View>
           <View style={styles.headerRightContent}>

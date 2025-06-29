@@ -302,19 +302,48 @@ const FetchStudents = () => {
                       
                       <div className="mb-8 shadow-xl rounded-lg overflow-hidden border border-gray-200">
                         {/* Group Header */}
-                        <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-4">
+                        {/* Mobile Layout */}
+                        <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-4 sm:hidden">
+                          <div className="space-y-3">
+                            <div className="text-center">
+                              <h3 className="text-base font-bold leading-tight">
+                                {group.className === 'Nursery' || group.className === 'L.K.G.' || group.className === 'U.K.G.' 
+                                  ? `${group.className}` 
+                                  : `Class ${group.className}`
+                                }
+                              </h3>
+                            </div>
+                            {group.section !== 'No Section' && (
+                              <div className="text-center">
+                                <div className="text-sm font-medium bg-white bg-opacity-15 rounded-md px-2 py-1 inline-block">
+                                  Section {group.section}
+                                </div>
+                              </div>
+                            )}
+                            <div className="text-center">
+                              <div className="text-xs font-semibold bg-white bg-opacity-20 rounded-full px-3 py-1 inline-block">
+                                {group.students.length} {group.students.length === 1 ? 'Student' : 'Students'}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Desktop Layout */}
+                        <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-4 hidden sm:block">
                           <div className="flex items-center justify-between">
-                            <h3 className="text-xl font-bold">
-                              {group.className === 'Nursery' || group.className === 'L.K.G.' || group.className === 'U.K.G.' 
-                                ? `${group.className}` 
-                                : `Class ${group.className}`
-                              }
+                            <div className="flex items-center gap-3">
+                              <h3 className="text-xl font-bold">
+                                {group.className === 'Nursery' || group.className === 'L.K.G.' || group.className === 'U.K.G.' 
+                                  ? `${group.className}` 
+                                  : `Class ${group.className}`
+                                }
+                              </h3>
                               {group.section !== 'No Section' && (
-                                <span className="ml-3 px-4 py-2 bg-white bg-opacity-25 rounded-full text-lg font-semibold">
+                                <span className="px-4 py-2 bg-white bg-opacity-25 rounded-full text-lg font-semibold">
                                   Section {group.section}
                                 </span>
                               )}
-                            </h3>
+                            </div>
                             <span className="bg-white bg-opacity-25 px-4 py-2 rounded-full text-sm font-bold">
                               {group.students.length} {group.students.length === 1 ? 'Student' : 'Students'}
                             </span>

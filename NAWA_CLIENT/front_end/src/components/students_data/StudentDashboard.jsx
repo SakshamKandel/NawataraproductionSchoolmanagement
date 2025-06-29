@@ -82,16 +82,16 @@ const StudentDashboard = () => {
   const isAdmin = document.cookie.includes('adminToken');
 
   return (
-    <div className="min-h-screen bg-[#f3f2ef]">
-      <div className="max-w-[1128px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="min-h-screen bg-[#f3f2ef] min-w-0">
+      <div className="max-w-[1128px] mx-auto px-4 sm:px-6 lg:px-8 py-6 min-w-0 w-full">
         {/* Header Section */}
-        <div className="bg-white rounded-lg shadow mb-4 p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h1 className="text-2xl font-semibold text-[#191919]">Student Management</h1>
-              <p className="text-[#666666] mt-1">Manage and track student information efficiently</p>
+        <div className="bg-white rounded-lg shadow mb-4 p-4 sm:p-6 min-w-0 w-full max-w-full">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-2 sm:gap-0 w-full min-w-0">
+            <div className="min-w-0 w-full">
+              <h1 className="text-lg sm:text-2xl font-semibold text-[#191919] break-words w-full leading-tight">Student Management</h1>
+              <p className="text-[#666666] mt-1 text-xs sm:text-base break-words w-full leading-tight">Manage and track student information efficiently</p>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 mt-2 sm:mt-0">
               <button
                 onClick={() => setViewMode('grid')}
                 className={`p-2 rounded ${
@@ -120,46 +120,51 @@ const StudentDashboard = () => {
           </div>
 
           {/* Search and Filter Section */}
-          <div className="flex flex-col md:flex-row gap-4 items-center">
-            <div className="relative flex-1">
-              <input
-                type="text"
-                placeholder="Search students..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full bg-[#eef3f8] focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-              <FontAwesomeIcon 
-                icon={faSearch} 
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500"
-              />
-            </div>
-            <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 w-full md:w-auto">
-              <button
-                onClick={() => setSelectedClass('all')}
-                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${
-                  selectedClass === 'all'
-                    ? 'bg-blue-600 text-white shadow-md'
-                    : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-300'
-                }`}
-              >
-                All Classes ({students.length})
-              </button>              {classes.map((grade) => (
+          <div className="w-full max-w-full min-w-0 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 relative">
+            {/* Visual scroll hint for mobile */}
+            <div className="absolute right-0 top-0 h-full w-8 pointer-events-none bg-gradient-to-l from-white via-white/80 to-transparent z-10 hidden sm:block"></div>
+            <div className="flex flex-col md:flex-row gap-4 items-center min-w-[340px] w-full min-w-0">
+              <div className="relative flex-1 w-full min-w-[200px] min-w-0">
+                <input
+                  type="text"
+                  placeholder="Search students..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full bg-[#eef3f8] focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
+                />
+                <FontAwesomeIcon 
+                  icon={faSearch} 
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500"
+                />
+              </div>
+              <div className="flex gap-2 flex-nowrap overflow-x-auto pb-2 md:pb-0 w-full md:w-auto min-w-[340px] max-w-full min-w-0">
                 <button
-                  key={grade}
-                  onClick={() => setSelectedClass(grade)}
+                  onClick={() => setSelectedClass('all')}
                   className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${
-                    selectedClass === grade
+                    selectedClass === 'all'
                       ? 'bg-blue-600 text-white shadow-md'
                       : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-300'
                   }`}
                 >
-                  {grade === 'Nursery' || grade === 'L.K.G.' || grade === 'U.K.G.' 
-                    ? `${grade} (${getClassCount(grade)})`
-                    : `Class ${grade} (${getClassCount(grade)})`
-                  }
+                  All Classes ({students.length})
                 </button>
-              ))}
+                {classes.map((grade) => (
+                  <button
+                    key={grade}
+                    onClick={() => setSelectedClass(grade)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+                      selectedClass === grade
+                        ? 'bg-blue-600 text-white shadow-md'
+                        : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-300'
+                    }`}
+                  >
+                    {grade === 'Nursery' || grade === 'L.K.G.' || grade === 'U.K.G.' 
+                      ? `${grade} (${getClassCount(grade)})`
+                      : `Class ${grade} (${getClassCount(grade)})`
+                    }
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -183,18 +188,20 @@ const StudentDashboard = () => {
               sortedGroups.map((group, groupIndex) => (
                 <div key={`${group.className}-${group.section}`} className="space-y-4">
                   {/* Section Header */}
-                  <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-4 rounded-lg shadow-lg">
-                    <div className="flex items-center justify-between">
-                      <h2 className="text-xl font-bold">
-                        {group.className === 'Nursery' || group.className === 'L.K.G.' || group.className === 'U.K.G.' 
-                          ? `${group.className}` 
-                          : `Class ${group.className}`
-                        }
-                        <span className="ml-3 px-4 py-2 bg-white bg-opacity-90 rounded-full text-lg font-bold text-blue-900 shadow-md border border-blue-200">
+                  <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 sm:px-6 py-3 sm:py-4 rounded-lg shadow-lg">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full min-w-0 gap-2 sm:gap-x-6">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-x-4 min-w-0 w-full">
+                        <span className="text-lg sm:text-xl font-bold break-words w-full text-white">
+                          {group.className === 'Nursery' || group.className === 'L.K.G.' || group.className === 'U.K.G.' 
+                            ? `${group.className}` 
+                            : `Class ${group.className}`
+                          }
+                        </span>
+                        <span className="px-3 py-1 sm:px-4 sm:py-2 bg-white bg-opacity-90 rounded-full text-base sm:text-lg font-bold text-blue-900 shadow-md border border-blue-200 text-center">
                           Section {group.section}
                         </span>
-                      </h2>
-                      <span className="bg-white bg-opacity-90 px-4 py-2 rounded-full text-sm font-bold text-blue-900 shadow-md border border-blue-200">
+                      </div>
+                      <span className="bg-white bg-opacity-90 px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-bold text-blue-900 shadow-md border border-blue-200 text-center min-w-[110px] sm:ml-4">
                         {group.students.length} {group.students.length === 1 ? 'Student' : 'Students'}
                       </span>
                     </div>
@@ -291,18 +298,22 @@ const StudentDashboard = () => {
               sortedGroups.map((group, groupIndex) => (
                 <div key={`list-${group.className}-${group.section}`} className="space-y-4">
                   {/* Section Header */}
-                  <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-4 rounded-lg shadow-lg">
-                    <div className="flex items-center justify-between">
-                      <h2 className="text-xl font-bold">
-                        {group.className === 'Nursery' || group.className === 'L.K.G.' || group.className === 'U.K.G.' 
-                          ? `${group.className}` 
-                          : `Class ${group.className}`
-                        }
-                        <span className="ml-3 px-4 py-2 bg-white bg-opacity-90 rounded-full text-lg font-bold text-blue-900 shadow-md border border-blue-200">
+                  <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 sm:px-6 py-3 sm:py-4 rounded-lg shadow-lg">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between sm:gap-x-6 gap-y-2 w-full">
+                      {/* Class & Section */}
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:gap-x-4 gap-y-2">
+                        <span className="text-lg sm:text-xl font-bold truncate text-white">
+                          {group.className === 'Nursery' || group.className === 'L.K.G.' || group.className === 'U.K.G.' 
+                            ? `${group.className}` 
+                            : `Class ${group.className}`
+                          }
+                        </span>
+                        <span className="px-3 py-1 sm:px-4 sm:py-2 bg-white bg-opacity-90 rounded-full text-base sm:text-lg font-bold text-blue-900 shadow-md border border-blue-200 text-center">
                           Section {group.section}
                         </span>
-                      </h2>
-                      <span className="bg-white bg-opacity-90 px-4 py-2 rounded-full text-sm font-bold text-blue-900 shadow-md border border-blue-200">
+                      </div>
+                      {/* Student Count */}
+                      <span className="bg-white bg-opacity-90 px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-bold text-blue-900 shadow-md border border-blue-200 text-center min-w-[110px]">
                         {group.students.length} {group.students.length === 1 ? 'Student' : 'Students'}
                       </span>
                     </div>

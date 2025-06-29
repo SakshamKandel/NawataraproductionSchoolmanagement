@@ -6,18 +6,18 @@ const ContactUs = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header section - Enhanced design */}
         <div className="flex flex-col md:flex-row gap-6 mb-8">
-          <div className="w-full md:w-1/3 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300">
+          <div className="w-full md:w-1/3 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300 flex-shrink-0">
             <div className="p-6 flex flex-col items-center justify-center h-full">
               {/* Logo with transparent white background */}
               <div className="w-40 h-40 bg-white rounded-lg flex items-center justify-center mb-4 border-2 border-gray-50">
                 <img 
-                  src="/school_logo.png" 
+                  src="/for web.png" 
                   alt="School Logo" 
                   className="max-h-32 max-w-32 object-contain"
                   onError={(e) => {
                     e.target.onerror = null;
                     e.target.style.display = 'none';
-                    e.target.parentNode.innerHTML = '<div class="text-xl font-semibold text-[#0a66c2]">NAWA TARA</div>';
+                    e.target.parentNode.innerHTML = '<div class=\"text-xl font-semibold text-[#0a66c2]\">NAWA TARA</div>';
                   }}
                 />
               </div>
@@ -29,9 +29,9 @@ const ContactUs = () => {
             </div>
           </div>
           
-          <div className="w-full md:w-2/3">
+          <div className="w-full md:w-2/3 flex items-stretch">
             {/* Modern contact card */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden h-full hover:shadow-md transition-shadow duration-300">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden h-full hover:shadow-md transition-shadow duration-300 flex flex-col justify-between">
               <div className="p-6">
                 <div className="flex items-center mb-4">
                   <div className="h-6 w-1 bg-[#0a66c2] rounded-full mr-3"></div>
@@ -99,7 +99,7 @@ const ContactUs = () => {
                     </div>
                     <div>
                       <h4 className="text-base font-medium text-gray-900">Office Hours</h4>
-                      <p className="text-sm text-gray-600">Monday-Friday: 8AM - 5PM</p>
+                      <p className="text-sm text-gray-600">Monday-Friday: 10AM - 4:30PM</p>
                     </div>
                   </div>
                 </div>
@@ -141,7 +141,7 @@ const ContactUs = () => {
                       </svg>
                       admin@nawataraenglishschool.com
                     </a>
-                    <p className="text-sm text-gray-600 mt-1">021460535</p>
+                    <p className="text-sm text-gray-600 mt-1"></p>
                   </div>
                 </div>
               </div>
@@ -165,7 +165,7 @@ const ContactUs = () => {
                       </svg>
                       academics@nawataraenglishschool.com
                     </a>
-                    <p className="text-sm text-gray-600 mt-1">021460535</p>
+                    <p className="text-sm text-gray-600 mt-1"></p>
                   </div>
                 </div>
               </div>
@@ -189,7 +189,7 @@ const ContactUs = () => {
                       </svg>
                       finance@nawataraenglishschool.com
                     </a>
-                    <p className="text-sm text-gray-600 mt-1">021460535</p>
+                    <p className="text-sm text-gray-600 mt-1"></p>
                   </div>
                 </div>
               </div>
@@ -198,35 +198,110 @@ const ContactUs = () => {
         </div>
         
         {/* Facilities section - enhanced design */}
-        {/* Google Map Integration */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8 hover:shadow-md transition-shadow duration-300">
-          <div className="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
-            <h3 className="text-lg font-medium text-gray-800 flex items-center">
-              <div className="h-6 w-6 rounded-full bg-[#0a66c2] flex items-center justify-center mr-2">
-                <svg className="h-3 w-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" /></svg>
+          <div className="flex flex-col md:flex-row">
+            <div className="w-full md:w-1/2 p-6 flex flex-col justify-center">
+              <div className="inline-block mb-4">
+                <div className="flex items-center">
+                  <div className="h-10 w-10 rounded-full bg-[#0a66c2] flex items-center justify-center">
+                    <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-800 ml-3">Our Location</h3>
+                </div>
+                <div className="h-1 w-24 bg-[#0a66c2] mt-2 ml-13 rounded-full"></div>
               </div>
-              Our Location
-            </h3>
-          </div>
-          <div className="p-6 flex flex-col items-center justify-center">
-            <iframe
-              src="https://www.google.com/maps?q=Nabatara+School+(Branch+Of+Sirjana+BRT),+Biratnagar,+Nepal&output=embed"
-              width="100%"
-              height="350"
-              style={{ border: 0, borderRadius: '12px', minWidth: '300px' }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Nabatara School (Branch Of Sirjana BRT) Location"
-            ></iframe>
-            <a
-              href="https://maps.app.goo.gl/aQyaESg8zcd5AUj2A"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-block px-6 py-2 bg-[#0a66c2] text-white rounded-lg shadow hover:bg-[#004182] transition-colors text-base font-medium"
-            >
-              View on Google Maps
-            </a>
+              
+              <p className="text-gray-600 mb-5">
+                Our school is conveniently located in Jamungacchi 04, Biratnagar, easily accessible with available transportation options.
+              </p>
+              
+              <div className="bg-gradient-to-r from-gray-50 to-white rounded-lg p-5 border border-gray-100">
+                <h4 className="text-base font-medium text-gray-800 mb-2 flex items-center">
+                  <svg className="h-4 w-4 mr-2 text-[#0a66c2]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                  </svg>
+                  Address
+                </h4>
+                <p className="text-sm text-gray-600 ml-6">Jamungacchi 04,<br/>Biratnagar, Morang, Nepal</p>
+                
+                <h4 className="text-base font-medium text-gray-800 mb-2 mt-5 flex items-center">
+                  <svg className="h-4 w-4 mr-2 text-[#0a66c2]" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                  </svg>
+                  Facilities
+                </h4>
+                <ul className="text-sm text-gray-600 ml-6 space-y-2">
+                  <li className="flex items-center">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#0a66c2] mr-2"></span>
+                    Transportation available for students
+                  </li>
+                  <li className="flex items-center">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#0a66c2] mr-2"></span>
+                    Well-equipped science and computer labs
+                  </li>
+                  <li className="flex items-center">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#0a66c2] mr-2"></span>
+                    Modern library and sports facilities
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="w-full md:w-1/2 bg-gradient-to-br from-blue-50 to-white p-4">
+              <div className="h-full">
+                <div className="mb-4">
+                  <h4 className="text-lg font-medium text-gray-800 mb-2">Find Us On Map</h4>
+                  <div className="h-1 w-16 bg-[#0a66c2] rounded-full"></div>
+                </div>
+                
+                <div className="relative bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-300">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d904.3598547695794!2d87.26301790847168!3d26.477167598280773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ef747cbf652429%3A0x787865b63a90c917!2sNabatara%20School%20(%20Branch%20Of%20Sirjana%20BRT%20)!5e0!3m2!1sen!2snp!4v1640000000000!5m2!1sen!2snp"
+                    width="100%"
+                    height="280"
+                    style={{border: 0}}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="transition-all duration-300 hover:opacity-90"
+                  ></iframe>
+                  
+                  <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-sm hover:bg-white transition-colors duration-200">
+                    <a 
+                      href="https://www.google.com/maps/place/Nabatara+School+(+Branch+Of+Sirjana+BRT+)/@26.4771676,87.2630179,772m/data=!3m2!1e3!4b1!4m6!3m5!1s0x39ef747cbf652429:0x787865b63a90c917!8m2!3d26.4771628!4d87.2655928!16s%2Fg%2F11c2jjc946?entry=tts&g_ep=EgoyMDI1MDYyMy4yIPu8ASoASAFQAw%3D%3D&skid=52691a04-3faf-4d4e-84e5-15fcf70caa2a" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-[#0a66c2] hover:text-blue-700 transition-colors duration-200"
+                      title="Open in Google Maps"
+                    >
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="mt-4 bg-white/70 backdrop-blur-sm rounded-lg p-4 border border-gray-100">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-gray-800">NAWA TARA ENGLISH SCHOOL</p>
+
+                    </div>
+                    <a href="mailto:contact@nawataraenglishschool.com" 
+                       className="text-xs text-[#0a66c2] font-medium hover:underline inline-flex items-center">
+                      <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                      </svg>
+                      Email
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

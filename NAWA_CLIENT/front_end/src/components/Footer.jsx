@@ -54,6 +54,7 @@ const Footer = () => {
                 </span>
                 <div className="text-gray-600 text-sm">
                   <p>021460535</p>
+                  
                 </div>
               </li>
             </ul>

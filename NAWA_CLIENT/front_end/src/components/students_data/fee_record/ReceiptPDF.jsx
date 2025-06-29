@@ -258,7 +258,7 @@ const ReceiptPDF = ({ studentData, pdfdata }) => {
           <View style={styles.headerLeftContent}>
             <Text style={styles.schoolName}>Nawa Tara English School</Text>
             <Text style={styles.schoolAddress}>Jamungacchi 04, Biratnagar, Morang, Nepal</Text>
-            <Text style={styles.schoolAddress}>Phone: 021460535 • Email: contact@nawataraenglishschool.com</Text>
+            <Text style={styles.schoolAddress}>Phone: 021460535 • Email: info@navatara.edu.np</Text>
             <View style={styles.receiptTag}>
               <Text>RECEIPT</Text>
             </View>
