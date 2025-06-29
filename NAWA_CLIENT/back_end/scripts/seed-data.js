@@ -36,7 +36,7 @@ async function seedData() {
     // Create developer account if it doesn't exist
     const developerData = {
       name: 'Developer',
-      email: 'developer@nawatara.edu.np',
+      email: 'developer@nawataraenglishschool.com',
       password: await bcrypt.hash('Developer@123', 10),
       role: 'developer',
       canManageYear: true,
@@ -141,4 +141,4 @@ async function seedData() {
 }
 
 // Run the seeding function
-seedData(); 
+seedData();
