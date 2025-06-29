@@ -135,8 +135,12 @@ const Footer = () => {
         <div className="border-t border-gray-200 pt-6 pb-2">
           <div className="flex flex-col md:flex-row justify-between items-center">
             {/* Copyright */}
-            <div className="text-gray-500 text-sm mb-4 md:mb-0">
+            <div className="text-gray-500 text-sm mb-2 md:mb-0">
               ©️ {new Date().getFullYear()} Nawa Tara English School. All rights reserved.
+            </div>
+            {/* Designed by Devignity */}
+            <div className="text-gray-500 text-xs">
+              Designed and Developed by: <a href="https://devignity.tech/" target="_blank" rel="noopener noreferrer" className="text-[#0a66c2] hover:underline font-semibold">Devignity</a>
             </div>
           </div>
         </div>

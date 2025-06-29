@@ -376,6 +376,15 @@ const TeacherReceiptPDF = ({ data }) => {
             <Text style={styles.signatureLabel}>Principal's Signature</Text>
           </View>
         </View>
+        {/* Designed by devignity */}
+        <View style={{marginTop: 10, alignItems: 'center', justifyContent: 'center', width: '100%'}}>
+          <Text style={{fontSize: 9, color: '#6b7280', textAlign: 'center'}}>
+            Designed and Developed by 
+            <Text style={{color: '#0a66c2', textDecoration: 'underline'}} render={({ pageNumber }) => (
+              <a href="https://devignity.tech/" target="_blank" rel="noopener noreferrer">devignity</a>
+            )}>devignity</Text>
+          </Text>
+        </View>
       </Page>
     </Document>
   );
