@@ -314,15 +314,15 @@ const Calendar = () => {
     setAllNoticesForSelectedDate([]); // Clear notices
   };
 
-  // Changed from array of strings to array of objects with unique id and display value
+  // Use full names for Nepali week (Sunday-Saturday)
   const daysOfWeek = [
-    { id: 'sunday', label: 'S' },
-    { id: 'monday', label: 'M' },
-    { id: 'tuesday', label: 'T' },
-    { id: 'wednesday', label: 'W' },
-    { id: 'thursday', label: 'T' },
-    { id: 'friday', label: 'F' },
-    { id: 'saturday', label: 'S' }
+    { id: 'sunday', label: 'Sunday' },
+    { id: 'monday', label: 'Monday' },
+    { id: 'tuesday', label: 'Tuesday' },
+    { id: 'wednesday', label: 'Wednesday' },
+    { id: 'thursday', label: 'Thursday' },
+    { id: 'friday', label: 'Friday' },
+    { id: 'saturday', label: 'Saturday' }
   ];
 
   // Pagination logic
@@ -451,10 +451,10 @@ const Calendar = () => {
           )}
           
           <div className="grid grid-cols-7 border-b">
-            {daysOfWeek.map((day, idx) => (
+            {daysOfWeek.map((day) => (
               <div 
                 key={day.id} 
-                className={`py-2 text-center text-xs font-medium ${idx === 0 || idx === 6 ? 'text-[#0a66c2]' : 'text-[#666666]'}`}
+                className={`py-2 text-center text-xs font-medium ${day.id === 'saturday' ? 'text-red-600' : 'text-[#666666]'}`}
               >
                 {day.label}
               </div>
@@ -466,17 +466,15 @@ const Calendar = () => {
               if (!day) {
                 return <div key={`empty-${idx}`} className="border-r border-b border-gray-100"></div>;
               }
-              
               const dateObj = new Date(currentYear, currentMonth, day);
               dateObj.setHours(0, 0, 0, 0);
               const isCurrentSelectedDate = selectedDate && dateObj.getTime() === selectedDate.getTime();
               const isTodayDate = dateObj.getTime() === today.getTime();
               const hasNoticesForDay = noticesForMonth[day] && noticesForMonth[day].length > 0;
               const dayOfWeek = dateObj.getDay();
-              const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
               const isSaturday = dayOfWeek === 6;
+              const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
               const isHovering = hoverDay === day;
-              
               return (
                 <div
                   key={`${currentYear}-${currentMonth}-${day}`}
@@ -485,22 +483,20 @@ const Calendar = () => {
                   onMouseLeave={() => setHoverDay(null)}
                   className={`
                     relative border-r border-b border-gray-100 min-h-[80px] transition-all duration-200 cursor-pointer
-                    ${isCurrentSelectedDate ? 'bg-[#e8f3ff]' : isWeekend ? 'bg-[#f9fafb]' : 'hover:bg-gray-50'}
+                    ${isCurrentSelectedDate ? 'bg-[#e8f3ff]' : isSaturday ? 'bg-red-50' : isWeekend ? 'bg-[#f9fafb]' : 'hover:bg-gray-50'}
                     ${isHovering ? 'shadow-md transform scale-[1.02] z-10' : ''}
                   `}
                 >
                   <div className={`
                     flex justify-center items-center w-7 h-7 mx-auto mt-1 text-sm font-medium rounded-full
-                    ${isTodayDate ? 'bg-[#0a66c2] text-white' : 
-                      isCurrentSelectedDate ? 'text-[#0a66c2] border-2 border-[#0a66c2]' : 
+                    ${isTodayDate ? 'bg-[#0a66c2] text-white' :
+                      isCurrentSelectedDate ? 'text-[#0a66c2] border-2 border-[#0a66c2]' :
                       isSaturday ? 'text-red-600' :
                       isWeekend ? 'text-[#0a66c2]' : 'text-[#666666]'}
                   `}>
                     {/* Day number with indicators for notices */}
                     <div className="flex flex-col items-center">
-                      <span className={`text-sm ${isTodayDate ? 'font-bold' : ''}`}>
-                        {day}
-                      </span>
+                      <span className={`text-sm ${isTodayDate ? 'font-bold' : ''}`}>{day}</span>
                       
                       {/* Notice indicators */}
                       {noticesForMonth[day] && (

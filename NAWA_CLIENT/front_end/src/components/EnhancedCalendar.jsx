@@ -464,10 +464,12 @@ const EnhancedCalendar = () => {
           >
             {/* Calendar Header */}
             <div className="grid grid-cols-7 bg-gray-50 border-b border-gray-200">
-              {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-                <div key={day} className="p-4 text-center text-gray-700 font-semibold text-sm bg-gray-50">
-                  <span className="hidden sm:inline">{day}day</span>
-                  <span className="sm:hidden">{day}</span>
+              {["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"].map((day, idx) => (
+                <div
+                  key={day}
+                  className={`p-4 text-center font-semibold text-sm bg-gray-50 ${day === 'Saturday' ? 'text-red-600' : 'text-gray-700'}`}
+                >
+                  {day}
                 </div>
               ))}
             </div>
@@ -493,6 +495,8 @@ const EnhancedCalendar = () => {
                     array.findIndex(e => e.id === event.id && e.title === event.title) === index
                   );
                   
+                  // Determine if this cell is Saturday (6th column)
+                  const isSaturday = dayIndex === 6;
                   return (
                     <motion.div
                       key={`${weekIndex}-${dayIndex}`}
@@ -510,11 +514,12 @@ const EnhancedCalendar = () => {
                           <div className={`
                             text-center font-semibold mb-2 text-sm
                             ${isToday ? 'text-white bg-blue-700 w-6 h-6 rounded-full flex items-center justify-center mx-auto shadow-sm' : 
-                              isSelected ? 'text-blue-700 font-bold' : 'text-gray-700'}
+                              isSelected ? 'text-blue-700 font-bold' : isSaturday ? 'text-red-600' : 'text-gray-700'}
                           `}>
                             {day}
                           </div>
-                            <div className="flex-1 overflow-hidden space-y-1">                            {uniqueEvents.slice(0, 2).map((event, index) => {
+                          <div className="flex-1 overflow-hidden space-y-1">
+                            {uniqueEvents.slice(0, 2).map((event, index) => {
                               const config = eventTypeConfig[event.eventType] || eventTypeConfig.notice;
                               return (
                                 <motion.div
