@@ -41,7 +41,7 @@ const YearEndManagement = () => {
   const [isBatchPromotion, setIsBatchPromotion] = useState(false);
   const [classToPromote, setClassToPromote] = useState(null);
 
-  const allowedEmails = ['admin@nawatara.edu.np', 'developer@nawatara.edu.np'];
+  const allowedEmails = ['admin@nawataraenglishschool.com ', 'developer@nawataraenglishschool.com '];
   const userEmail = (localStorage.getItem('email') || '').trim().toLowerCase();
 
   useEffect(() => {

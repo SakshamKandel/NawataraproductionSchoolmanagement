@@ -258,13 +258,13 @@ const ReceiptPDF = ({ studentData, pdfdata }) => {
           <View style={styles.headerLeftContent}>
             <Text style={styles.schoolName}>Nawa Tara English School</Text>
             <Text style={styles.schoolAddress}>Jamungacchi 04, Biratnagar, Morang, Nepal</Text>
-            <Text style={styles.schoolAddress}>Phone: 021460535 • Email: info@navatara.edu.np</Text>
+            <Text style={styles.schoolAddress}>Phone: 021460535 • Email: info@nawataraenglishschool.com</Text>
             <View style={styles.receiptTag}>
               <Text>RECEIPT</Text>
             </View>
           </View>
           <View style={styles.headerRightContent}>
-            <Image style={styles.logo} src="/school_logo.png" />
+            <Image style={styles.schoolLogo} src={"/for web.png"} />
           </View>
         </View>
 
@@ -373,7 +373,7 @@ const ReceiptPDF = ({ studentData, pdfdata }) => {
 
         {/* Page Footer */}
         <View style={styles.footer} fixed>
-          <Text>Navatara English School</Text>
+          <Text>Nawa Tara English School</Text>
           <Text>NTSC-{receiptNumber} • {currentDate}</Text>
         </View>
       </Page>

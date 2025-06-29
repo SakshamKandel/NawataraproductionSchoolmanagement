@@ -12,7 +12,7 @@ async function seedData() {
     const hashedPassword = await bcrypt.hash('admin123', 10);
     const adminData = {
       name: 'Admin',
-      email: 'admin@navatara.edu.np',
+      email: 'admin@nawataraenglishschool.com',
       password: hashedPassword,
       role: 'admin',
       canManageYear: true,
@@ -110,7 +110,7 @@ async function seedData() {
     // Create a sample teacher
     const teacherData = {
       name: 'John Doe',
-      email: 'teacher@navatara.edu.np',
+      email: 'teacher@nawataraenglishschool.com',
       password: await bcrypt.hash('teacher123', 10),
       role: 'teacher',
       subject: 'Mathematics',

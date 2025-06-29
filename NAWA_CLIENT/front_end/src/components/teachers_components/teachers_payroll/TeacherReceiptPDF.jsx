@@ -193,7 +193,8 @@ const styles = StyleSheet.create({
     borderTopStyle: 'solid',
     paddingTop: 15,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   signatureSection: {
     width: '30%',
@@ -282,12 +283,15 @@ const TeacherReceiptPDF = ({ data }) => {
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerLeftContent}>
-            <Text style={styles.schoolName}>NAWA School</Text>
-            <Text style={styles.schoolAddress}>Kathmandu, Nepal</Text>
-            <Text style={styles.schoolAddress}>Phone: 021460535</Text>
+            <Text style={styles.schoolName}>Nawa Tara English School</Text>
+            <Text style={styles.schoolAddress}>Jamungacchi 04, Biratnagar, Morang, Nepal</Text>
+            <Text style={styles.schoolAddress}>Phone: 021460535 • Email: info@nawataraenglishschool.com</Text>
+            <View style={styles.receiptTag}>
+              <Text>SALARY RECEIPT</Text>
+            </View>
           </View>
           <View style={styles.headerRightContent}>
-            <Text style={styles.receiptTag}>SALARY RECEIPT</Text>
+            <Image style={styles.schoolLogo} src={"/for web.png"} />
           </View>
         </View>
 

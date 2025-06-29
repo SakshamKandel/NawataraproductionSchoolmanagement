@@ -59,7 +59,7 @@ const CreateAccountAdmin = () => {
             </svg>
           </div>
           <h2 className="text-3xl font-bold text-gray-900">Create Admin Account</h2>
-          <p className="text-gray-600 text-sm mt-2">Navatara English School Admin Portal</p>
+          <p className="text-gray-600 text-sm mt-2">Nawa Tara English School Admin Portal</p>
         </div>
 
         {/* LinkedIn-style card */}
@@ -195,7 +195,7 @@ const CreateAccountAdmin = () => {
               </svg>
             </div>
             <p className="ml-2 text-xs text-gray-500">
-              By creating an account, you're granting admin access to the Navatara School Management System
+              By creating an account, you're granting admin access to the Nawatara School Management System
             </p>
           </div>
         </div>

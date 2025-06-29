@@ -259,7 +259,7 @@ router.get("/students/:id/fee-receipt", verifyAdmin, async (req, res) => {
         totalPaid: Object.values(fee.records[month] || {}).reduce((a, b) => a + b, 0)
       },
       school: {
-        name: "Nava Tara Secondary School",
+        name: "Nawa tara Secondary School",
         address: "Bhaktapur, Nepal",
         contact: "+977-1-1234567"
       },
@@ -280,7 +280,7 @@ router.get("/students/:id/fee-receipt", verifyAdmin, async (req, res) => {
       doc.pipe(res);
       
       // Add content to the PDF
-      doc.fontSize(25).text('Nava Tara Secondary School', {align: 'center'});
+      doc.fontSize(25).text('Nawa Tara Secondary School', {align: 'center'});
       doc.fontSize(15).text('Bhaktapur, Nepal', {align: 'center'});
       doc.moveDown();
       doc.fontSize(20).text('FEE RECEIPT', {align: 'center'});
