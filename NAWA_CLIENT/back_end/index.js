@@ -278,9 +278,9 @@ const startServer = async () => {
     console.log('MySQL Database connection has been established successfully.');
     
     // 2. Synchronize all models with the database schema
-    // Using { alter: false } to prevent data loss
-    await sequelize.sync({ alter: false }); 
-    console.log('Database schema synchronized with models (safe mode - no alterations).');
+    // Using { alter: true } temporarily for fee structure migration
+    await sequelize.sync({ alter: true }); 
+    console.log('Database schema synchronized with models (migration mode).');
 
     // 3. Initialize database with required defaults (seeding, etc.)
     try {

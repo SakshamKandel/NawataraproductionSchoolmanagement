@@ -12,17 +12,17 @@ const ClassFee = sequelize.define('ClassFee', {
     allowNull: false,
     unique: true
   },
-  admissionFee: {
-    type: DataTypes.FLOAT,
-    allowNull: false,
-    defaultValue: 0
-  },
   monthlyFee: {
     type: DataTypes.FLOAT,
     allowNull: false,
     defaultValue: 0
   },
-  computerFee: {
+  transportationFee: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+    defaultValue: 0
+  },
+  examFee: {
     type: DataTypes.FLOAT,
     allowNull: false,
     defaultValue: 0

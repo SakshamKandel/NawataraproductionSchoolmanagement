@@ -10,14 +10,14 @@ const createUpdateClassFeeController = async (req, res) => {
       return res.status(403).send("Only administrators can manage fee structures");
     }
 
-    const { className, admissionFee, monthlyFee, computerFee } = req.body;
+    const { className, monthlyFee, transportationFee, examFee } = req.body;
     
     // Validate input data
     if (!className || className.trim() === '') {
       return res.status(400).send("Class name is required");
     }
     
-    if (isNaN(admissionFee) || isNaN(monthlyFee) || isNaN(computerFee)) {
+    if (isNaN(monthlyFee) || isNaN(transportationFee) || isNaN(examFee)) {
       return res.status(400).send("All fee amounts must be valid numbers");
     }
     
@@ -25,17 +25,17 @@ const createUpdateClassFeeController = async (req, res) => {
     const [feeStructure, created] = await ClassFee.findOrCreate({
       where: { className: className.trim() },
       defaults: {
-        admissionFee: parseFloat(admissionFee),
         monthlyFee: parseFloat(monthlyFee),
-        computerFee: parseFloat(computerFee)
+        transportationFee: parseFloat(transportationFee),
+        examFee: parseFloat(examFee)
       }
     });
     
     // If structure exists but we're updating it
     if (!created) {
-      feeStructure.admissionFee = parseFloat(admissionFee);
       feeStructure.monthlyFee = parseFloat(monthlyFee);
-      feeStructure.computerFee = parseFloat(computerFee);
+      feeStructure.transportationFee = parseFloat(transportationFee);
+      feeStructure.examFee = parseFloat(examFee);
       await feeStructure.save();
       
       return res.status(200).json({

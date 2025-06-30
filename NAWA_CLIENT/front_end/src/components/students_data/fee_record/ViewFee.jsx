@@ -59,9 +59,9 @@ const ViewFee = () => {
         months.forEach((month) => {
           if (response.data[0]?.records && response.data[0].records[month]) {
             total += 
-              (response.data[0].records[month].adm_fee || 0) +
               (response.data[0].records[month].month_fee || 0) +
-              (response.data[0].records[month].comp_fee || 0);
+              (response.data[0].records[month].transportation_fee || 0) +
+              (response.data[0].records[month].exam_fee || 0);
           }
         });
         setPayed(total);
@@ -77,9 +77,9 @@ const ViewFee = () => {
             setFeeStructure(amountResponse.data);
             
             // Calculate due amount based on fee structure
-            const totalFees = (amountResponse.data.admissionFee || 0) + 
-                            ((amountResponse.data.monthlyFee || 0) * 12) + 
-                            ((amountResponse.data.computerFee || 0) * 12);
+            const totalFees = ((amountResponse.data.monthlyFee || 0) * 12) + 
+                            ((amountResponse.data.transportationFee || 0) * 12) + 
+                            ((amountResponse.data.examFee || 0) * 12);
             setDue(totalFees - total);
           } catch (feeError) {
             console.error("Error fetching class fee structure:", feeError);

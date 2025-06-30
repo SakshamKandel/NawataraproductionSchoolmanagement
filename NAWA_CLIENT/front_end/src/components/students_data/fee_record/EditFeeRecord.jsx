@@ -9,9 +9,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { getApiUrl } from '../../../config/api.js';
 
 const schema = yup.object({
-  adm_fee: yup.number().min(0).required(),
   month_fee: yup.number().min(0).required(),
-  comp_fee: yup.number().min(0).required(),
+  transportation_fee: yup.number().min(0).required(),
+  exam_fee: yup.number().min(0).required(),
 });
 
 const EditFeeRecord = () => {
@@ -25,9 +25,9 @@ const EditFeeRecord = () => {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      adm_fee: 0,
       month_fee: 0,
-      comp_fee: 0,
+      transportation_fee: 0,
+      exam_fee: 0,
     },
   });
   const location = useLocation();
@@ -52,9 +52,9 @@ const EditFeeRecord = () => {
         
         // Set form values from record
         if (response.data && response.data[0]?.records && response.data[0].records[location.state.month]) {
-          setValue("adm_fee", response.data[0].records[location.state.month].adm_fee);
           setValue("month_fee", response.data[0].records[location.state.month].month_fee);
-          setValue("comp_fee", response.data[0].records[location.state.month].comp_fee);
+          setValue("transportation_fee", response.data[0].records[location.state.month].transportation_fee);
+          setValue("exam_fee", response.data[0].records[location.state.month].exam_fee);
         }
         
         // Get class fee structure for reference
@@ -100,9 +100,9 @@ const EditFeeRecord = () => {
           setUpdating(true); // Indicate loading state for submission
           try {
             const updatedMonthData = {
-              adm_fee: parseFloat(data.adm_fee) || 0,
               month_fee: parseFloat(data.month_fee) || 0,
-              comp_fee: parseFloat(data.comp_fee) || 0,
+              transportation_fee: parseFloat(data.transportation_fee) || 0,
+              exam_fee: parseFloat(data.exam_fee) || 0,
               // Assuming 'paid_status' and 'paid_date' are handled by backend or not needed here for receipt
             };
 
@@ -125,10 +125,10 @@ const EditFeeRecord = () => {
             // Prepare data for receipt page
             const receiptPdfData = {
               month: location.state.month,
-              adm_fee: updatedMonthData.adm_fee,
               month_fee: updatedMonthData.month_fee,
-              comp_fee: updatedMonthData.comp_fee,
-              total: updatedMonthData.adm_fee + updatedMonthData.month_fee + updatedMonthData.comp_fee,
+              transportation_fee: updatedMonthData.transportation_fee,
+              exam_fee: updatedMonthData.exam_fee,
+              total: updatedMonthData.month_fee + updatedMonthData.transportation_fee + updatedMonthData.exam_fee,
             };
 
             // Navigate back to ViewFee with student object and receipt data
@@ -168,10 +168,10 @@ const EditFeeRecord = () => {
   };
 
   // Calculate form totals
-  const admFee = parseFloat(watch("adm_fee") || 0);
   const monthFee = parseFloat(watch("month_fee") || 0);
-  const compFee = parseFloat(watch("comp_fee") || 0);
-  const totalFee = admFee + monthFee + compFee;
+  const transportationFee = parseFloat(watch("transportation_fee") || 0);
+  const examFee = parseFloat(watch("exam_fee") || 0);
+  const totalFee = monthFee + transportationFee + examFee;
 
   // Add button to apply class fee structure
   const applyClassFeeStructure = () => {
@@ -180,9 +180,9 @@ const EditFeeRecord = () => {
       return;
     }
     
-    setValue("adm_fee", feeStructure.admissionFee);
     setValue("month_fee", feeStructure.monthlyFee);
-    setValue("comp_fee", feeStructure.computerFee);
+    setValue("transportation_fee", feeStructure.transportationFee);
+    setValue("exam_fee", feeStructure.examFee);
     toast.success("Applied class fee structure");
   };
 
@@ -216,16 +216,16 @@ const EditFeeRecord = () => {
             <div className="p-4 text-sm">
               <div className="grid grid-cols-3 gap-2">
                 <div>
-                  <p className="text-gray-500">Admission Fee</p>
-                  <p className="font-medium">Rs. {feeStructure.admissionFee}</p>
-                </div>
-                <div>
                   <p className="text-gray-500">Monthly Fee</p>
                   <p className="font-medium">Rs. {feeStructure.monthlyFee}</p>
                 </div>
                 <div>
-                  <p className="text-gray-500">Computer Fee</p>
-                  <p className="font-medium">Rs. {feeStructure.computerFee}</p>
+                  <p className="text-gray-500">Transportation Fee</p>
+                  <p className="font-medium">Rs. {feeStructure.transportationFee}</p>
+                </div>
+                <div>
+                  <p className="text-gray-500">Exam Fee</p>
+                  <p className="font-medium">Rs. {feeStructure.examFee}</p>
                 </div>
               </div>
               <button
@@ -267,30 +267,6 @@ const EditFeeRecord = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit(updateRecord)} className="space-y-5">
-                <div>
-                  <label
-                    htmlFor="adm_fee"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Admission Fee
-                  </label>
-                  <div className="relative rounded-md shadow-sm">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <span className="text-gray-500 sm:text-sm">Rs.</span>
-                    </div>
-                    <input
-                      type="number"
-                      id="adm_fee"
-                      name="adm_fee"
-                      className="pl-12 block w-full shadow-sm border-gray-300 rounded-md focus:ring-[#0a66c2] focus:border-[#0a66c2] py-2.5 transition-colors text-sm"
-                      placeholder="0.00"
-                      {...register("adm_fee")}
-                    />
-                  </div>
-                  {errors.adm_fee && (
-                    <p className="mt-1 text-sm text-red-600">{errors.adm_fee.message}</p>
-                  )}
-                </div>
 
                 <div>
                   <label
@@ -319,10 +295,10 @@ const EditFeeRecord = () => {
 
                 <div>
                   <label
-                    htmlFor="comp_fee"
+                    htmlFor="transportation_fee"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Computer Fee
+                    Transportation Fee
                   </label>
                   <div className="relative rounded-md shadow-sm">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -330,15 +306,40 @@ const EditFeeRecord = () => {
                     </div>
                     <input
                       type="number"
-                      id="comp_fee"
-                      name="comp_fee"
+                      id="transportation_fee"
+                      name="transportation_fee"
                       className="pl-12 block w-full shadow-sm border-gray-300 rounded-md focus:ring-[#0a66c2] focus:border-[#0a66c2] py-2.5 transition-colors text-sm"
                       placeholder="0.00"
-                      {...register("comp_fee")}
+                      {...register("transportation_fee")}
                     />
                   </div>
-                  {errors.comp_fee && (
-                    <p className="mt-1 text-sm text-red-600">{errors.comp_fee.message}</p>
+                  {errors.transportation_fee && (
+                    <p className="mt-1 text-sm text-red-600">{errors.transportation_fee.message}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="exam_fee"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Exam Fee
+                  </label>
+                  <div className="relative rounded-md shadow-sm">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <span className="text-gray-500 sm:text-sm">Rs.</span>
+                    </div>
+                    <input
+                      type="number"
+                      id="exam_fee"
+                      name="exam_fee"
+                      className="pl-12 block w-full shadow-sm border-gray-300 rounded-md focus:ring-[#0a66c2] focus:border-[#0a66c2] py-2.5 transition-colors text-sm"
+                      placeholder="0.00"
+                      {...register("exam_fee")}
+                    />
+                  </div>
+                  {errors.exam_fee && (
+                    <p className="mt-1 text-sm text-red-600">{errors.exam_fee.message}</p>
                   )}
                 </div>
 

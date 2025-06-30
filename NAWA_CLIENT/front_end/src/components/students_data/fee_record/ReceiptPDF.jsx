@@ -324,13 +324,6 @@ const ReceiptPDF = ({ studentData, pdfdata }) => {
               <Text>{pdfdata.month.toUpperCase()}</Text>
             </View>
             <View style={styles.feeTable}>
-              {pdfdata.adm_fee > 0 && (
-                <View style={styles.feeRow}>
-                  <Text style={styles.feeItem}>Admission Fee</Text>
-                  <Text style={styles.feeAmount}>RS {pdfdata.adm_fee.toFixed(2)}</Text>
-                </View>
-              )}
-              
               {pdfdata.month_fee > 0 && (
                 <View style={styles.feeRow}>
                   <Text style={styles.feeItem}>Monthly Tuition Fee</Text>
@@ -338,10 +331,17 @@ const ReceiptPDF = ({ studentData, pdfdata }) => {
                 </View>
               )}
               
-              {pdfdata.comp_fee > 0 && (
+              {pdfdata.transportation_fee > 0 && (
                 <View style={styles.feeRow}>
-                  <Text style={styles.feeItem}>Computer Lab Charges</Text>
-                  <Text style={styles.feeAmount}>RS {pdfdata.comp_fee.toFixed(2)}</Text>
+                  <Text style={styles.feeItem}>Transportation Fee</Text>
+                  <Text style={styles.feeAmount}>RS {pdfdata.transportation_fee.toFixed(2)}</Text>
+                </View>
+              )}
+              
+              {pdfdata.exam_fee > 0 && (
+                <View style={styles.feeRow}>
+                  <Text style={styles.feeItem}>Exam Fee</Text>
+                  <Text style={styles.feeAmount}>RS {pdfdata.exam_fee.toFixed(2)}</Text>
                 </View>
               )}
             </View>

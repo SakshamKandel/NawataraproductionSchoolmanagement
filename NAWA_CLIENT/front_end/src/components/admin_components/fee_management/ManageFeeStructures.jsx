@@ -10,9 +10,9 @@ import { getApiUrl } from '../../../config/api';
 // Validation schema for fee structure
 const schema = yup.object({
   className: yup.string().required("Class name is required"),
-  admissionFee: yup.number().min(0, "Must be a positive number").required("Admission fee is required"),
   monthlyFee: yup.number().min(0, "Must be a positive number").required("Monthly fee is required"),
-  computerFee: yup.number().min(0, "Must be a positive number").required("Computer fee is required"),
+  transportationFee: yup.number().min(0, "Must be a positive number").required("Transportation fee is required"),
+  examFee: yup.number().min(0, "Must be a positive number").required("Exam fee is required"),
 });
 
 const ManageFeeStructures = () => {
@@ -34,9 +34,9 @@ const ManageFeeStructures = () => {
     resolver: yupResolver(schema),
     defaultValues: {
       className: "",
-      admissionFee: 0,
       monthlyFee: 0,
-      computerFee: 0,
+      transportationFee: 0,
+      examFee: 0,
     }
   });
 
@@ -103,9 +103,9 @@ const ManageFeeStructures = () => {
   // Set form data when editing an existing fee structure
   const handleEdit = (structure) => {
     setValue("className", structure.className);
-    setValue("admissionFee", structure.admissionFee);
     setValue("monthlyFee", structure.monthlyFee);
-    setValue("computerFee", structure.computerFee);
+    setValue("transportationFee", structure.transportationFee);
+    setValue("examFee", structure.examFee);
     setSelectedStructureId(structure.id);
     setEditMode(true);
   };
@@ -119,10 +119,10 @@ const ManageFeeStructures = () => {
 
   // Calculate total yearly fees for a class
   const calculateYearlyTotal = (structure) => {
-    const admissionFee = parseFloat(structure.admissionFee) || 0;
     const monthlyFee = parseFloat(structure.monthlyFee) || 0;
-    const computerFee = parseFloat(structure.computerFee) || 0;
-    return admissionFee + (monthlyFee * 12) + (computerFee * 12);
+    const transportationFee = parseFloat(structure.transportationFee) || 0;
+    const examFee = parseFloat(structure.examFee) || 0;
+    return (monthlyFee * 12) + (transportationFee * 12) + (examFee * 12);
   };
 
   return adminLoggedIn ? (
@@ -174,30 +174,6 @@ const ManageFeeStructures = () => {
               </div>
               
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <div>
-                  <label htmlFor="admissionFee" className="block text-sm font-medium text-gray-700 mb-1">
-                    Admission Fee (One-time)
-                  </label>
-                  <div className="relative rounded-md shadow-sm">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <span className="text-gray-500 sm:text-sm">Rs.</span>
-                    </div>
-                    <input
-                      type="number"
-                      id="admissionFee"
-                      min="0"
-                      step="0.01"
-                      className={`pl-12 block w-full shadow-sm border-gray-300 rounded-md focus:ring-[#0a66c2] focus:border-[#0a66c2] py-2.5 transition-colors text-sm ${
-                        errors.admissionFee ? "border-red-300" : ""
-                      }`}
-                      placeholder="0.00"
-                      {...register("admissionFee")}
-                    />
-                  </div>
-                  {errors.admissionFee && (
-                    <p className="mt-1 text-sm text-red-600">{errors.admissionFee.message}</p>
-                  )}
-                </div>
                 
                 <div>
                   <label htmlFor="monthlyFee" className="block text-sm font-medium text-gray-700 mb-1">
@@ -225,8 +201,8 @@ const ManageFeeStructures = () => {
                 </div>
                 
                 <div>
-                  <label htmlFor="computerFee" className="block text-sm font-medium text-gray-700 mb-1">
-                    Computer Lab Fee (Monthly)
+                  <label htmlFor="transportationFee" className="block text-sm font-medium text-gray-700 mb-1">
+                    Transportation Fee (Monthly)
                   </label>
                   <div className="relative rounded-md shadow-sm">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -234,18 +210,43 @@ const ManageFeeStructures = () => {
                     </div>
                     <input
                       type="number"
-                      id="computerFee"
+                      id="transportationFee"
                       min="0"
                       step="0.01"
                       className={`pl-12 block w-full shadow-sm border-gray-300 rounded-md focus:ring-[#0a66c2] focus:border-[#0a66c2] py-2.5 transition-colors text-sm ${
-                        errors.computerFee ? "border-red-300" : ""
+                        errors.transportationFee ? "border-red-300" : ""
                       }`}
                       placeholder="0.00"
-                      {...register("computerFee")}
+                      {...register("transportationFee")}
                     />
                   </div>
-                  {errors.computerFee && (
-                    <p className="mt-1 text-sm text-red-600">{errors.computerFee.message}</p>
+                  {errors.transportationFee && (
+                    <p className="mt-1 text-sm text-red-600">{errors.transportationFee.message}</p>
+                  )}
+                </div>
+                
+                <div>
+                  <label htmlFor="examFee" className="block text-sm font-medium text-gray-700 mb-1">
+                    Exam Fee (Monthly)
+                  </label>
+                  <div className="relative rounded-md shadow-sm">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <span className="text-gray-500 sm:text-sm">Rs.</span>
+                    </div>
+                    <input
+                      type="number"
+                      id="examFee"
+                      min="0"
+                      step="0.01"
+                      className={`pl-12 block w-full shadow-sm border-gray-300 rounded-md focus:ring-[#0a66c2] focus:border-[#0a66c2] py-2.5 transition-colors text-sm ${
+                        errors.examFee ? "border-red-300" : ""
+                      }`}
+                      placeholder="0.00"
+                      {...register("examFee")}
+                    />
+                  </div>
+                  {errors.examFee && (
+                    <p className="mt-1 text-sm text-red-600">{errors.examFee.message}</p>
                   )}
                 </div>
               </div>
@@ -313,13 +314,13 @@ const ManageFeeStructures = () => {
                       Class
                     </th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Admission Fee
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Monthly Fee
                     </th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Computer Fee
+                      Transportation Fee
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Exam Fee
                     </th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Yearly Total
@@ -335,20 +336,19 @@ const ManageFeeStructures = () => {
                         <div className="text-sm font-medium text-gray-900">{structure.className}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">Rs. {structure.admissionFee.toFixed(2)}</div>
-                        <div className="text-xs text-gray-500">(one-time)</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-900">Rs. {structure.monthlyFee.toFixed(2)}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">Rs. {structure.computerFee.toFixed(2)}</div>
+                        <div className="text-sm text-gray-900">Rs. {structure.transportationFee.toFixed(2)}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">Rs. {structure.examFee.toFixed(2)}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm font-medium text-gray-900">
                           Rs. {calculateYearlyTotal(structure).toFixed(2)}
                         </div>
-                        <div className="text-xs text-gray-500">(incl. admission fee)</div>
+                        <div className="text-xs text-gray-500">(12 months total)</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <button

@@ -13,17 +13,17 @@ const edit_class_fee_struct_Controller = async (req, res) => {
       
       // Check if there are actual changes to make
       if (
-        req.body.admissionFee == classFee.admissionFee && 
         req.body.monthlyFee == classFee.monthlyFee && 
-        req.body.computerFee == classFee.computerFee
+        req.body.transportationFee == classFee.transportationFee && 
+        req.body.examFee == classFee.examFee
       ) {
         return res.status(400).send("There were no updates in the fee structure");
       }
       
       // Update the fee structure
-      classFee.admissionFee = req.body.admissionFee;
       classFee.monthlyFee = req.body.monthlyFee;
-      classFee.computerFee = req.body.computerFee;
+      classFee.transportationFee = req.body.transportationFee;
+      classFee.examFee = req.body.examFee;
       await classFee.save();
       
       res.send("Updated fee structure successfully");

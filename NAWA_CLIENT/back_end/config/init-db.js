@@ -57,6 +57,47 @@ async function initializeDatabase() {
     } catch (err) {
       console.error('Error checking Notice table columns:', err.message);
     }
+    
+    // Fee structure migration
+    try {
+      // Check ClassFees table structure and migrate if needed
+      const [classFeeColumns] = await sequelize.query("SHOW COLUMNS FROM ClassFees");
+      const columnNames = classFeeColumns.map(col => col.Field);
+      console.log('ClassFees current columns:', columnNames);
+      
+      // Add new columns if they don't exist
+      if (!columnNames.includes('transportationFee')) {
+        console.log('Adding transportationFee column to ClassFees table');
+        await sequelize.query("ALTER TABLE ClassFees ADD COLUMN transportationFee FLOAT NOT NULL DEFAULT 0");
+      }
+      
+      if (!columnNames.includes('examFee')) {
+        console.log('Adding examFee column to ClassFees table');
+        await sequelize.query("ALTER TABLE ClassFees ADD COLUMN examFee FLOAT NOT NULL DEFAULT 0");
+      }
+      
+      // Handle computerFee migration
+      if (columnNames.includes('computerFee')) {
+        console.log('Migrating computerFee data to transportationFee...');
+        // Copy data from computerFee to transportationFee if transportationFee is 0
+        await sequelize.query(
+          "UPDATE ClassFees SET transportationFee = computerFee WHERE computerFee IS NOT NULL AND transportationFee = 0"
+        );
+        
+        console.log('Removing computerFee column...');
+        await sequelize.query("ALTER TABLE ClassFees DROP COLUMN computerFee");
+      }
+      
+      // Remove admissionFee if it exists
+      if (columnNames.includes('admissionFee')) {
+        console.log('Removing admissionFee column...');
+        await sequelize.query("ALTER TABLE ClassFees DROP COLUMN admissionFee");
+      }
+      
+      console.log('ClassFees table migration completed successfully');
+    } catch (err) {
+      console.error('Error migrating ClassFees table:', err.message);
+    }
   } catch (error) {
     console.error('Error initializing database:', error);
     process.exit(1);
