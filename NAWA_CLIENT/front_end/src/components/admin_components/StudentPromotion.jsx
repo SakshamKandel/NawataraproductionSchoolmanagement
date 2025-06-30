@@ -43,36 +43,6 @@ import toast from 'react-hot-toast';
 const StudentPromotion = () => {
   const [classSummary, setClassSummary] = useState([]);
   const [loading, setLoading] = useState(true);
-  
-  // Check if user has access to this component
-  const userEmail = localStorage.getItem('email');
-  const hasAccess = userEmail === 'developer@nawataraenglishschool.com' || userEmail === 'admin@nawataraenglishschool.com';
-  
-  // If no access, show unauthorized message
-  if (!hasAccess) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center">
-        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md text-center">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <FontAwesomeIcon icon={faLock} className="text-2xl text-red-600" />
-          </div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">Access Restricted</h3>
-          <p className="text-gray-600 mb-4">
-            Student Promotion is restricted to Developer and Super Admin accounts only.
-          </p>
-          <p className="text-sm text-gray-500">
-            Current user: {userEmail || 'Unknown'}
-          </p>
-          <button
-            onClick={() => window.history.back()}
-            className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
-          >
-            Go Back
-          </button>
-        </div>
-      </div>
-    );
-  }
   const [selectedClass, setSelectedClass] = useState(null);
   const [classStudents, setClassStudents] = useState([]);
   const [showPasswordModal, setShowPasswordModal] = useState(false);

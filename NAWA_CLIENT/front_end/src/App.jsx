@@ -10,6 +10,8 @@ import AIChatBox from "./components/AIChatBox";
 
 import LoginForm from "./components/LoginForm";
 import Context from "./Context";
+import { AuthProvider } from "./contexts/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 import CreateNotice from "./components/admin_components/notice_creation/CreateNotice";
 import Notice from "./components/notices/Notice";
 import NoticeDiagnostic from "./components/notices/NoticeDiagnostic";
@@ -86,23 +88,24 @@ export default function App() {
   return (
     <Router>
       <Context>
-        <Toaster 
-          position="top-right" 
-          toastOptions={{
-            duration: 4000,
-            style: {
-              background: '#fff',
-              color: '#333',
-              borderRadius: '12px',
-              boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
-              border: '1px solid #e5e7eb',
-              padding: '16px',
-              marginTop: '5rem'
-            }
-          }} 
-        />
-        <Navbar />
-        <main className="z-10 min-h-screen">
+        <AuthProvider>
+          <Toaster 
+            position="top-right" 
+            toastOptions={{
+              duration: 4000,
+              style: {
+                background: '#fff',
+                color: '#333',
+                borderRadius: '12px',
+                boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
+                border: '1px solid #e5e7eb',
+                padding: '16px',
+                marginTop: '5rem'
+              }
+            }} 
+          />
+          <Navbar />
+          <main className="z-10 min-h-screen">
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/about-us" element={<About />} />
@@ -121,10 +124,10 @@ export default function App() {
             <Route exact path="/edit-student-fee-record" element={<EditFeeRecord/>} />
             <Route exact path="/view-teachers-payroll" element={<TeacherPayroll/>} />
             <Route exact path="/my-salary" element={<MySalary />} />
-            <Route exact path="/admin/remove-teacher" element={<RemoveTeacher />} />
+            <Route exact path="/admin/remove-teacher" element={<ProtectedRoute requireAdmin={true}><RemoveTeacher /></ProtectedRoute>} />
             <Route exact path="/submit-leave" element={<SubmitLeave />} />
             <Route exact path="/admin/leave-requests" element={<ViewLeaveRequests />} />
-            <Route exact path="/admin/teacher-notices" element={<ViewTeacherNotices />} />
+            <Route exact path="/admin/teacher-notices" element={<ProtectedRoute requireAdmin={true}><ViewTeacherNotices /></ProtectedRoute>} />
             <Route exact path="/submit-notice" element={<SubmitNotice />} />
             <Route exact path="/teacher-alerts" element={<TeacherAlerts />} />
             <Route exact path="/admin/year-end-management" element={<YearEndManagement />} />
@@ -132,14 +135,15 @@ export default function App() {
             <Route exact path="/notice-diagnostic" element={<NoticeDiagnostic />} />
             <Route exact path="/attachment-test" element={<AttachmentTest />} />
             <Route exact path="/manage-fee-structures" element={<ManageFeeStructures />} />
-            <Route exact path="/admin/manage-admins" element={<ManageAdmins />} />
+            <Route exact path="/admin/manage-admins" element={<ProtectedRoute requireSuperAdmin={true}><ManageAdmins /></ProtectedRoute>} />
             <Route exact path="/teacher-student-list" element={<TeacherStudentList />} />
-            <Route exact path="/admin/student-promotion" element={<StudentPromotion />} />
-            <Route exact path="/admin/student-data" element={<StudentDataManager />} />
+            <Route exact path="/admin/student-promotion" element={<ProtectedRoute requireSuperAdmin={true}><StudentPromotion /></ProtectedRoute>} />
+            <Route exact path="/admin/student-data" element={<ProtectedRoute requireSuperAdmin={true}><StudentDataManager /></ProtectedRoute>} />
           </Routes>
-        </main>
-        <AIChatBox />
-        <Footer />
+          </main>
+          <AIChatBox />
+          <Footer />
+        </AuthProvider>
       </Context>
     </Router>
   );

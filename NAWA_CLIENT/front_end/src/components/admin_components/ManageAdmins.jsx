@@ -42,7 +42,6 @@ const ManageAdmins = () => {
     'developer@gmail.com'
   ];
   const userEmail = (localStorage.getItem('email') || '').trim().toLowerCase();
-  const isSuperAdmin = allowedEmails.includes(userEmail);
   const isDeveloper = userEmail === 'developer@nawataraenglishschool.com' || userEmail === 'developer@gmail.com';
   const isMainAdmin = userEmail === 'admin@nawataraenglishschool.com' || userEmail === 'admin@gmail.com';
   const isEnhancedUser = userEmail === 'admin@nawataraenglishschool.com' || userEmail === 'developer@nawataraenglishschool.com';
@@ -103,12 +102,6 @@ const ManageAdmins = () => {
     return "hover:bg-gray-50";
   };
 
-  useEffect(() => {
-    if (!allowedEmails.includes(userEmail)) {
-      toast.error('You are not authorized to access this page.');
-      navigate('/');
-    }
-  }, [userEmail, navigate]);
 
   const fetchAdmins = useCallback(async () => {
     try {
